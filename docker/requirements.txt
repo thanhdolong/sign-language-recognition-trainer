@@ -1,0 +1,6 @@
+tensorflow==1.14.0
+keras==2.2.4
+coremltools==4.0
+matplotlib
+jupyter
+h5py
