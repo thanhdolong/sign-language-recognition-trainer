@@ -20,6 +20,8 @@ public class VisionAnalysisManager {
     private var framesAnnotated = [[String: Bool]]()
     public var frames = [CGImage]()
     
+    public var videoSize = CGSize()
+    
     private var keyBodyLandmarks = [[[VNRecognizedPointKey: VNPoint]]]()
     private var keyHandLandmarks = [[[VNRecognizedPointKey: VNPoint]]]()
     private var keyFaceLandmarks = [[[CGPoint]]]()
@@ -47,6 +49,9 @@ public class VisionAnalysisManager {
         // Generate the individual frames from the vido
         self.frames = VideoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
         self.framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
+        
+        // Calculate the size of the video
+        self.videoSize = VideoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
         
         for frame in frames {
             // Create a VNImageRequestHandler for each of the desired frames
