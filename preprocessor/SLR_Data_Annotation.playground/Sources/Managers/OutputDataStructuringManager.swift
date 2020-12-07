@@ -12,7 +12,7 @@ import CreateML
 public class OutputDataStructuringManager {
     
     ///
-    /// Representations of the possible errors occuring
+    /// Representations of the possible errors occuring in this context
     ///
     enum OutputProcessingError: Error {
         case invalidData
@@ -40,6 +40,8 @@ public class OutputDataStructuringManager {
         
         // Stack the data from individual analyses to arrays
         var stackedData = [String: [[Double]]]()
+        var videoMetadata = ["width": [Double](), "height": [Double](), "fps": [Double]()]
+        
         for key in ObservationTerminology.bodyLandmarksKeyOrder + ObservationTerminology.handLandmarksKeyOrder + ObservationTerminology.faceLandmarksKeyOrder {
             stackedData[key] = []
         }
@@ -67,6 +69,11 @@ public class OutputDataStructuringManager {
                     stackedData[key]?.append(value)
                 }
             }
+            
+            // Add video size information to the dataset
+            videoMetadata["width"]?.append(Double(analysis.videoSize.width))
+            videoMetadata["height"]?.append(Double(analysis.videoSize.height))
+            videoMetadata["fps"]?.append(Double(analysis.fps))
         }
         
         for (key, value) in stackedData {
@@ -74,6 +81,10 @@ public class OutputDataStructuringManager {
                 convertedToMLData[key] = value
             }
         }
+        
+        convertedToMLData["video_size_width"] = videoMetadata["width"]
+        convertedToMLData["video_size_height"] = videoMetadata["height"]
+        convertedToMLData["video_fps"] = videoMetadata["fps"]
         
         do {
             // Create a MLDataTable on top of the structured data
