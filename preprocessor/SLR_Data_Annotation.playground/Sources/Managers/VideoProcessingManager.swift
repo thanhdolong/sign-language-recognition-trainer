@@ -19,6 +19,8 @@ public class VideoProcessingManager {
     ///   - videoUrl: URL of the video to be annotated
     ///   - fps: Frames per second to be annotated
     ///
+    /// - Returns: Array of frames as CGImages
+    ///
     public static func getAllFrames(videoUrl: URL, fps: Int) -> [CGImage] {
         // Import the video into AVFoundation
         let asset = AVAsset(url: videoUrl)
@@ -53,6 +55,8 @@ public class VideoProcessingManager {
     ///   - fromTime: Float64 of the time to extract the frame from
     ///   - generator: AVAssetImageGenerator with the video already encoded
     ///
+    /// - Returns: Desired frame as CGImage
+    ///
     private static func getFrame(fromTime: Float64, generator: AVAssetImageGenerator) -> CGImage? {
         let image: CGImage
         
@@ -67,6 +71,26 @@ public class VideoProcessingManager {
         }
         
         return image
+    }
+    
+    ///
+    /// Calculates the given video's size.
+    ///
+    /// - Parameters:
+    ///   - videoUrl: URL of the video to be annotated
+    ///
+    /// - Returns: CGSize of the given video
+    ///
+    public static func getVideoSize(videoUrl: URL) -> CGSize {
+        // Import the video into AVFoundation
+        let asset = AVAsset(url: videoUrl)
+        guard let track = asset.tracks(withMediaType: AVMediaType.video).first else { return CGSize() }
+        
+        // Calculate the size using the transformation from the track
+        let size = track.naturalSize.applying(track.preferredTransform)
+        
+        // Convert the data into CGSize
+        return CGSize(width: abs(size.width), height: abs(size.height))
     }
     
 }
