@@ -11,46 +11,41 @@ import Vision
 
 
 public class ObservationConfiguration {
-    
+
     ///
     /// List of all the data annotations to be analyzed using Vision.
     ///
     public static let desiredDataAnnotations: [ObservationType] = [.bodyLandmarks, .handLandmarks]
-    
+
     ///
     /// List of requested recognized body landmarks key in order to filter out any redundant.
     ///
     /// - Warning: If empty, all body landmarks are requested
     ///
-    public static let requestedBodyLandmarks: [VNRecognizedPointKey] = [
-        VNRecognizedPointKey.bodyLandmarkKeyNose,
-        VNRecognizedPointKey.bodyLandmarkKeyRightEye,
-        VNRecognizedPointKey.bodyLandmarkKeyLeftEye,
-        VNRecognizedPointKey.bodyLandmarkKeyRightEar,
-        VNRecognizedPointKey.bodyLandmarkKeyLeftEar,
-        VNRecognizedPointKey.bodyLandmarkKeyRightShoulder,
-        VNRecognizedPointKey.bodyLandmarkKeyLeftShoulder,
-        VNRecognizedPointKey.bodyLandmarkKeyRightElbow,
-        VNRecognizedPointKey.bodyLandmarkKeyLeftElbow,
-        VNRecognizedPointKey.bodyLandmarkKeyRightWrist,
-        VNRecognizedPointKey.bodyLandmarkKeyLeftWrist
+    public static let requestedBodyLandmarks: [VNHumanBodyPoseObservation.JointName] = [
+        .nose,
+        .rightEye, .leftEye,
+        .rightEar, .leftEar,
+        .rightShoulder, .leftShoulder,
+        .rightElbow, .leftElbow,
+        .rightWrist, .leftWrist
     ]
-    
+
     ///
     /// List of requested recognized hand landmarks key in order to filter out any redundant.
     ///
     /// - Warning: If empty, all hand landmarks are requested
     ///
-    public static let requestedHandLandmarks: [VNRecognizedPointKey] = []
-    
+    public static let requestedHandLandmarks: [VNHumanHandPoseObservation.JointName] = []
+
     ///
     /// Frequency of capturing and analyzing (relative to seconds).
     ///
     public static let updateFrequency = 0.2
-    
+
     ///
     /// Number of iterations for a single sign to be recorded.
     ///
     public static let iterationsCount = 20
-    
+
 }

@@ -11,23 +11,23 @@ import Cocoa
 import CreateML
 
 public class DatasetManager {
-    
+
     ///
     /// Representations of the possible errors occuring in this context
     ///
     enum DatasetError: Error {
         case invalidDirectoryContents
     }
-    
-    
+
+
     // MARK: Properties
-    var directoryPath: String
-    var fps: Int
-    
+    private let directoryPath: String
+    private let fps: Int
+
     private static let fileManager = FileManager.default
-    
+
     // MARK: Methods
-    
+
     ///
     /// Initiates the DatasetManager for easy data processing and annotations of complete dataset directories.
     ///
@@ -35,11 +35,11 @@ public class DatasetManager {
     ///   - directoryPath: String path of the dataset directory
     ///   - fps: Frames per second to be annotated by the individual videos
     ///
-    public init?(directoryPath: String, fps: Int) {
+    public init(directoryPath: String, fps: Int) {
         self.directoryPath = directoryPath
         self.fps = fps
     }
-    
+
     ///
     /// Annotates the entire associated dataset and returns the data in a form of a MLDataTable.
     ///
@@ -52,43 +52,43 @@ public class DatasetManager {
         var foundSubdirectories = [String]()
         var labels = [String]()
         var analysesManagers = [VisionAnalysisManager]()
-        
+
         do {
             // Load all of the labels present in the dataset
             foundSubdirectories = try DatasetManager.fileManager.contentsOfDirectory(atPath: self.directoryPath)
         } catch {
             throw DatasetError.invalidDirectoryContents
         }
-        
+
         // Create annotations managers for each of the labels
         do {
             for subdirectory in foundSubdirectories {
                 if subdirectory.starts(with: ".") {
                     continue
                 }
-                
+
                 // Construct the URL path for each of the labels (items of the repository)
                 let currentLabelPath = self.directoryPath.appending("/" + subdirectory + "/")
-                
+
                 for item in try DatasetManager.fileManager.contentsOfDirectory(atPath: currentLabelPath) {
                     // Prevent from non-video formats
                     if !item.contains(".mp4") {
                         // TODO: Throw
                     }
-                    
+
                     // Load and process the annotations for each of the videos
                     let currentItemAnalysisManager = VisionAnalysisManager(videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)), fps: self.fps)
                     currentItemAnalysisManager?.annotate()
-                    
+
                     analysesManagers.append(currentItemAnalysisManager!)
                 }
-                
+
                 labels.append(subdirectory)
             }
         } catch {
             throw error
         }
-        
+
         do {
             // Structure the data into a MLDataTable
             return try OutputDataStructuringManager.combineData(labels: labels, visionAnalyses: analysesManagers)
@@ -96,5 +96,5 @@ public class DatasetManager {
             throw error
         }
     }
-    
+
 }

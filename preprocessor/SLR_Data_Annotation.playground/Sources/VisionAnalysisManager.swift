@@ -12,23 +12,23 @@ import Vision
 
 
 public class VisionAnalysisManager {
-    
+
     // MARK: Properties
     var videoUrl: URL
     var fps: Int = 4
-    
+
     private var framesAnnotated = [[String: Bool]]()
     public var frames = [CGImage]()
-    
+
     public var videoSize = CGSize()
-    
-    private var keyBodyLandmarks = [[[VNRecognizedPointKey: VNPoint]]]()
-    private var keyHandLandmarks = [[[VNRecognizedPointKey: VNPoint]]]()
+
+    private var keyBodyLandmarks = [[[VNHumanBodyPoseObservation.JointName: VNPoint]]]()
+    private var keyHandLandmarks = [[[VNHumanHandPoseObservation.JointName: VNPoint]]]()
     private var keyFaceLandmarks = [[[CGPoint]]]()
-    
-    
+
+
     // MARK: Methods
-    
+
     ///
     /// Initiates the VisionAnalysisManager which is responsible for the Vision analysis and annotation of any
     /// given video.
@@ -41,7 +41,7 @@ public class VisionAnalysisManager {
         self.videoUrl = videoUrl
         self.fps = fps
     }
-    
+
     ///
     /// Starts the asynchronous process of annotation with the data associated to this VisionAnalysisManager.
     ///
@@ -49,21 +49,21 @@ public class VisionAnalysisManager {
         // Generate the individual frames from the vido
         self.frames = VideoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
         self.framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
-        
+
         // Calculate the size of the video
         self.videoSize = VideoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
-        
+
         for frame in frames {
             // Create a VNImageRequestHandler for each of the desired frames
             let handler = VNImageRequestHandler(cgImage: frame, options: [:])
-            
+
             // Process the Vision data for all of the
             invokeBodyPoseDetection(handler: handler)
             invokeHandPoseDetection(handler: handler)
             invokeFaceLandmarksDetection(handler: handler)
         }
     }
-    
+
     ///
     /// Returns all of the data analyzed and structured within this from this VisionAnalysisManager.
     ///
@@ -73,14 +73,14 @@ public class VisionAnalysisManager {
     /// - Warning: If the data annotations still are not finished, empty arrays will be returned. Check
     ///     `VisionAnalysisManager.isAnnotated()` to find out the current status.
     ///
-    public func getData() -> ([[[VNRecognizedPointKey: VNPoint]]], [[[VNRecognizedPointKey: VNPoint]]], [[[CGPoint]]]) {
+    public func getData() -> ([[[VNHumanBodyPoseObservation.JointName: VNPoint]]], [[[VNHumanHandPoseObservation.JointName: VNPoint]]], [[[CGPoint]]]) {
         if self.isAnnotated() {
             return (self.keyBodyLandmarks, self.keyHandLandmarks, self.keyFaceLandmarks)
         } else {
             return ([], [], [])
         }
     }
-    
+
     ///
     /// Determines whether the data associated with this VisionAnalysisManager is already processed and
     /// annotated.
@@ -95,11 +95,11 @@ public class VisionAnalysisManager {
                 }
             }
         }
-        
+
         return true
     }
 
-    
+
     // MARK: Body landmarks detection
 
     ///
@@ -133,34 +133,37 @@ public class VisionAnalysisManager {
     ///
     func retrieveBodyPoseDetectionResults(request: VNRequest, error: Error?) {
         guard let observations =
-                request.results as? [VNRecognizedPointsObservation] else { return }
+                request.results as? [VNHumanBodyPoseObservation] else { return }
 
         // Process each observation to find the recognized body landmarks
-        var result = [[VNRecognizedPointKey: VNPoint]]()
+        var result = [[VNHumanBodyPoseObservation.JointName: VNPoint]]()
         observations.forEach { result.append(processBodyPoseObservation($0)) }
-        
+
         self.keyBodyLandmarks.append(result)
         self.framesAnnotated[self.keyBodyLandmarks.count - 1]["body"] = true
     }
 
-    func processBodyPoseObservation(_ observation: VNRecognizedPointsObservation) -> [VNRecognizedPointKey: VNPoint] {
+    func processBodyPoseObservation(_ observation: VNHumanBodyPoseObservation) -> [VNHumanBodyPoseObservation.JointName: VNPoint] {
         // Retrieve all points
-        guard let recognizedPoints = try? observation.recognizedPoints(forGroupKey: .all) else {
+        guard let recognizedPoints = try? observation.recognizedPoints(.all) else {
             return [:]
         }
-        
-        var keyBodyLandmarks = [VNRecognizedPointKey: VNPoint]()
+
+
+        var keyBodyLandmarks = [VNHumanBodyPoseObservation.JointName: VNPoint]()
 
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints {
             if point.confidence > MachineLearningConfiguration.bodyPoseDetectionThreshold {
                 // Keep the point for further analysis if relevant
-                if (!ObservationConfiguration.requestedBodyLandmarks.isEmpty && ObservationConfiguration.requestedBodyLandmarks.contains(key)) || ObservationConfiguration.requestedBodyLandmarks.isEmpty {
+                if (!ObservationConfiguration.requestedBodyLandmarks.isEmpty &&
+                        ObservationConfiguration.requestedBodyLandmarks.contains(key)) ||
+                    ObservationConfiguration.requestedBodyLandmarks.isEmpty {
                     keyBodyLandmarks[key] = point
                 }
             }
         }
-        
+
         return keyBodyLandmarks
     }
 
@@ -197,23 +200,23 @@ public class VisionAnalysisManager {
     ///   - error: Possible error occuring during the analysis
     ///
     func retrieveHandPoseDetectionResults(request: VNRequest, error: Error?) {
-        guard let observations = request.results as? [VNRecognizedPointsObservation] else { return }
+        guard let observations = request.results as? [VNHumanHandPoseObservation] else { return }
 
         // Process each observation to find the recognized hand landmarks
-        var result = [[VNRecognizedPointKey: VNPoint]]()
+        var result = [[VNHumanHandPoseObservation.JointName: VNPoint]]()
         observations.forEach { result.append(processHandPoseObservation($0)) }
-        
+
         self.keyHandLandmarks.append(result)
         self.framesAnnotated[self.keyHandLandmarks.count - 1]["hands"] = true
     }
 
-    func processHandPoseObservation(_ observation: VNRecognizedPointsObservation) -> [VNRecognizedPointKey: VNPoint] {
+    func processHandPoseObservation(_ observation: VNHumanHandPoseObservation) -> [VNHumanHandPoseObservation.JointName : VNPoint] {
         // Retrieve all points.
-        guard let recognizedPoints = try? observation.recognizedPoints(forGroupKey: .all) else {
+        guard let recognizedPoints = try? observation.recognizedPoints(.all) else {
             return [:]
         }
 
-        var keyHandLandmarks = [VNRecognizedPointKey: VNPoint]()
+        var keyHandLandmarks = [VNHumanHandPoseObservation.JointName : VNPoint]()
 
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints {
@@ -224,7 +227,7 @@ public class VisionAnalysisManager {
                 }
             }
         }
-        
+
         return keyHandLandmarks
     }
 
@@ -264,7 +267,7 @@ public class VisionAnalysisManager {
         // Process each observation to find the recognized face landmarks
         var result = [[CGPoint]]()
         observations.forEach { result.append(processFaceLandmarksObservation($0)) }
-        
+
         self.keyFaceLandmarks.append(result)
         self.framesAnnotated[self.keyFaceLandmarks.count - 1]["face"] = true
     }
@@ -274,8 +277,8 @@ public class VisionAnalysisManager {
         guard let recognizedLandmarks = observation.landmarks else {
             return []
         }
-        
+
         return recognizedLandmarks.allPoints?.normalizedPoints ?? []
     }
-    
+
 }
