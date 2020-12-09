@@ -47,7 +47,7 @@ let datasetManager = DatasetManager(directoryPath: datasetPath, fps: 3)
 
 do {
     // Structure the data into a MLDataTable
-    let dataTable = try datasetManager!.generateMLTable()
+    let dataTable = try datasetManager.generateMLTable()
     
     // Save it to Desktop folder in CSV
     try dataTable.writeCSV(to: URL(fileURLWithPath: datasetPath).appendingPathComponent("dataset_test.csv"))

@@ -38,14 +38,4 @@ public class ObservationConfiguration {
     ///
     public static let requestedHandLandmarks: [VNHumanHandPoseObservation.JointName] = []
 
-    ///
-    /// Frequency of capturing and analyzing (relative to seconds).
-    ///
-    public static let updateFrequency = 0.2
-
-    ///
-    /// Number of iterations for a single sign to be recorded.
-    ///
-    public static let iterationsCount = 20
-
 }
