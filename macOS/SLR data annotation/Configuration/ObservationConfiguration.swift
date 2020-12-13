@@ -20,14 +20,14 @@ struct ObservationConfiguration {
     ///
     /// List of all the data annotations to be analyzed using Vision.
     ///
-    let desiredDataAnnotations: [ObservationType] = [.bodyLandmarks, .handLandmarks]
+    static let desiredDataAnnotations: [ObservationType] = [.bodyLandmarks, .handLandmarks]
 
     ///
     /// List of requested recognized body landmarks key in order to filter out any redundant.
     ///
     /// - Warning: If empty, all body landmarks are requested
     ///
-    let requestedBodyLandmarks: [VNHumanBodyPoseObservation.JointName] = [
+    static let requestedBodyLandmarks: [VNHumanBodyPoseObservation.JointName] = [
         .nose,
         .rightEye, .leftEye,
         .rightEar, .leftEar,
@@ -41,6 +41,5 @@ struct ObservationConfiguration {
     ///
     /// - Warning: If empty, all hand landmarks are requested
     ///
-    let requestedHandLandmarks: [VNHumanHandPoseObservation.JointName] = []
-
+    static let requestedHandLandmarks: [VNHumanHandPoseObservation.JointName] = []
 }

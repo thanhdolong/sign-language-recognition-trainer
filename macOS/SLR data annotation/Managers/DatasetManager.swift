@@ -21,11 +21,10 @@ class DatasetManager {
 
 
     // MARK: Properties
+
     private let directoryPath: String
     private let fps: Int
-    private let observationConfiguration: ObservationConfiguration
-
-    private static let fileManager = FileManager.default
+    private let fileManager: FileManager
 
     // MARK: Methods
 
@@ -38,10 +37,10 @@ class DatasetManager {
     ///
     init(directoryPath: String,
          fps: Int,
-         observationConfiguration: ObservationConfiguration) {
+         fileManager: FileManager = .default) {
         self.directoryPath = directoryPath
         self.fps = fps
-        self.observationConfiguration = observationConfiguration
+        self.fileManager = fileManager
     }
 
     ///
@@ -52,14 +51,14 @@ class DatasetManager {
     /// - Throws: Corresponding `DatasetError` or `OutputProcessingError`, based on any
     ///     errors occurring during the data processing or the annotations
     ///
-    public func generateMLTable() throws -> MLDataTable {
+    func generateMLTable() throws -> MLDataTable {
         var foundSubdirectories = [String]()
         var labels = [String]()
         var analysesManagers = [VisionAnalysisManager]()
 
         do {
             // Load all of the labels present in the dataset
-            foundSubdirectories = try DatasetManager.fileManager.contentsOfDirectory(atPath: self.directoryPath)
+            foundSubdirectories = try fileManager.contentsOfDirectory(atPath: self.directoryPath)
         } catch {
             throw DatasetError.invalidDirectoryContents
         }
@@ -74,7 +73,7 @@ class DatasetManager {
                 // Construct the URL path for each of the labels (items of the repository)
                 let currentLabelPath = self.directoryPath.appending("/" + subdirectory + "/")
 
-                for item in try DatasetManager.fileManager.contentsOfDirectory(atPath: currentLabelPath) {
+                for item in try fileManager.contentsOfDirectory(atPath: currentLabelPath) {
                     // Prevent from non-video formats
                     if !item.contains(".mp4") {
                         // TODO: Throw
@@ -82,8 +81,7 @@ class DatasetManager {
 
                     // Load and process the annotations for each of the videos
                     let currentItemAnalysisManager = VisionAnalysisManager(videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
-                                                                           fps: self.fps,
-                                                                           observationConfiguration: observationConfiguration)
+                                                                           fps: self.fps)
                     currentItemAnalysisManager.annotate()
 
                     analysesManagers.append(currentItemAnalysisManager)
@@ -97,7 +95,7 @@ class DatasetManager {
 
         do {
             // Structure the data into a MLDataTable
-            let outputDataStructuringManager = DataStructuringManager(observationConfiguration: observationConfiguration)
+            let outputDataStructuringManager = DataStructuringManager()
             return try outputDataStructuringManager.combineData(labels: labels, visionAnalyses: analysesManagers)
         } catch {
             throw error

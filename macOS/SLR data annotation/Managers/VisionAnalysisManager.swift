@@ -18,14 +18,14 @@ class VisionAnalysisManager {
 
     // MARK: Properties
 
-    let videoUrl: URL
-    let fps: Int
-    let observationConfiguration: ObservationConfiguration
+    private let videoProcessingManager: VideoProcessingManager
 
+    private let videoUrl: URL
     private var framesAnnotated = [[String: Bool]]()
-    public var frames = [CGImage]()
+    private var frames = [CGImage]()
 
-    public var videoSize = CGSize()
+    private(set) var fps: Int
+    private(set) var videoSize = CGSize()
 
     private var keyBodyLandmarks = KeyBodyLandmarks()
     private var keyHandLandmarks = KeyHandLandmarks()
@@ -42,10 +42,12 @@ class VisionAnalysisManager {
     ///   - videoUrl: URL of the video to be annotated
     ///   - fps: Frames per second to be annotated
     ///
-    init(videoUrl: URL, fps: Int = 4, observationConfiguration: ObservationConfiguration) {
+    init(videoUrl: URL,
+         fps: Int = 4,
+         videoProcessingManager: VideoProcessingManager = .init()) {
         self.videoUrl = videoUrl
         self.fps = fps
-        self.observationConfiguration = observationConfiguration
+        self.videoProcessingManager = videoProcessingManager
     }
 
     ///
@@ -53,11 +55,11 @@ class VisionAnalysisManager {
     ///
     public func annotate() {
         // Generate the individual frames from the vido
-        self.frames = VideoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
+        self.frames = videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
         self.framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
 
         // Calculate the size of the video
-        self.videoSize = VideoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
+        self.videoSize = videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
 
         for frame in frames {
             // Create a VNImageRequestHandler for each of the desired frames
@@ -162,8 +164,8 @@ class VisionAnalysisManager {
         for (key, point) in recognizedPoints {
             if point.confidence > MachineLearningConfiguration.bodyPoseDetectionThreshold {
                 // Keep the point for further analysis if relevant
-                if (observationConfiguration.requestedBodyLandmarks.contains(key)) ||
-                    observationConfiguration.requestedBodyLandmarks.isEmpty {
+                if (ObservationConfiguration.requestedBodyLandmarks.contains(key)) ||
+                    ObservationConfiguration.requestedBodyLandmarks.isEmpty {
                     keyBodyLandmarks[key] = point
                 }
             }
@@ -227,7 +229,8 @@ class VisionAnalysisManager {
         for (key, point) in recognizedPoints {
             if point.confidence > MachineLearningConfiguration.handPoseDetectionThreshold {
                 // Keep the point for further analysis if relevant
-                if (observationConfiguration.requestedHandLandmarks.contains(key)) || observationConfiguration.requestedHandLandmarks.isEmpty {
+                if (ObservationConfiguration.requestedHandLandmarks.contains(key)) ||
+                    ObservationConfiguration.requestedHandLandmarks.isEmpty {
                     keyHandLandmarks[key] = point
                 }
             }

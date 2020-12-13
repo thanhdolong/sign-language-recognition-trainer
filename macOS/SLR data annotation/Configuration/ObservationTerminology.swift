@@ -7,12 +7,12 @@
 
 import Vision
 
-public struct ObservationTerminology {
+struct ObservationTerminology {
     ///
     /// Dictionary for conversion bewteen the `VNHumanBodyPoseObservation.JointName` and custom methodology
     /// `String` identifiers for the body landmarks.
     ///
-    public static let bodyLandmarksKeysToLabels: [VNHumanBodyPoseObservation.JointName: String] = [
+    static let bodyLandmarksKeysToLabels: [VNHumanBodyPoseObservation.JointName: String] = [
         .nose : "nose",
         .rightEye : "rightEye",
         .leftEye: "leftEye",
@@ -30,7 +30,7 @@ public struct ObservationTerminology {
     /// Dictionary for conversion bewteen the `VNHumanHandPoseObservation.JointName` and custom methodology
     /// `String` identifiers for the hand landmarks.
     ///
-    public static let handLandmarksKeysToLabels: [VNHumanHandPoseObservation.JointName: String] = [
+    static let handLandmarksKeysToLabels: [VNHumanHandPoseObservation.JointName: String] = [
         .wrist: "wrist",
         .indexTip: "indexTip",
         .indexDIP: "indexDIP",

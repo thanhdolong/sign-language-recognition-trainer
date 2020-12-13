@@ -34,15 +34,14 @@ struct ContentView: View {
 
         // Load the video into the VisionAnalysisManager
         let analysisManager = VisionAnalysisManager(videoUrl: videoUrl,
-                                                    fps: 3,
-                                                    observationConfiguration: observationConfiguration)
+                                                    fps: 3)
 
         // Annotate for the necessary elements
         analysisManager.annotate()
 
         do {
             // Structure the data into a MLDataTable
-            let outputDataStructuringManager = DataStructuringManager(observationConfiguration: observationConfiguration)
+            let outputDataStructuringManager = DataStructuringManager()
             let dataTable = try outputDataStructuringManager.combineData(labels: labels, visionAnalyses: [analysisManager])
 
             // Save it to Desktop folder in CSV

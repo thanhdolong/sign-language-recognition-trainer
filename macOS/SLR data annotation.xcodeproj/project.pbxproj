@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F31A8FDCF1582EFD1985C45 /* Pods_SLR_data_annotationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66B72D0D1FCEED54B3C84FD /* Pods_SLR_data_annotationTests.framework */; };
+		26EF7923B8C854EAE11A7499 /* Pods_SLR_data_annotation_SLR_data_annotationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95D3203553C820D913375D3 /* Pods_SLR_data_annotation_SLR_data_annotationUITests.framework */; };
 		6F402EDE258674EB0036A33E /* ObservationTerminology.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F402EDD258674EB0036A33E /* ObservationTerminology.swift */; };
 		6F5FFFAA25852E8100FB5DC2 /* SLR_data_annotationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */; };
 		6F5FFFAC25852E8100FB5DC2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */; };
@@ -21,6 +23,9 @@
 		6F5FFFED25852ED900FB5DC2 /* MachineLearningConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFE925852ED900FB5DC2 /* MachineLearningConfiguration.swift */; };
 		6F5FFFF425852EE900FB5DC2 /* VisionAnalysisManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */; };
 		6F5FFFFB258538C300FB5DC2 /* FilePanel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */; };
+		6F8B035825867D4100BEC533 /* Dictionary+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8B035725867D4100BEC533 /* Dictionary+.swift */; };
+		6F8B036025867D6700BEC533 /* VNRecognizedPointsObservation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8B035F25867D6700BEC533 /* VNRecognizedPointsObservation+.swift */; };
+		957B4B8F9F959FEDB8F96DA6 /* Pods_SLR_data_annotation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19611A702137370F3DD3429E /* Pods_SLR_data_annotation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C80CC81847852A0EFB340AB /* Pods-SLR data annotationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLR data annotationTests.release.xcconfig"; path = "Target Support Files/Pods-SLR data annotationTests/Pods-SLR data annotationTests.release.xcconfig"; sourceTree = "<group>"; };
+		1334C06E3EFD7B1F3985504D /* Pods-SLR data annotation-SLR data annotationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLR data annotation-SLR data annotationUITests.debug.xcconfig"; path = "Target Support Files/Pods-SLR data annotation-SLR data annotationUITests/Pods-SLR data annotation-SLR data annotationUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		19611A702137370F3DD3429E /* Pods_SLR_data_annotation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SLR_data_annotation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F402EDD258674EB0036A33E /* ObservationTerminology.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationTerminology.swift; sourceTree = "<group>"; };
 		6F5FFFA625852E8100FB5DC2 /* SLR data annotation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SLR data annotation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLR_data_annotationApp.swift; sourceTree = "<group>"; };
@@ -62,6 +70,14 @@
 		6F5FFFE925852ED900FB5DC2 /* MachineLearningConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineLearningConfiguration.swift; sourceTree = "<group>"; };
 		6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionAnalysisManager.swift; sourceTree = "<group>"; };
 		6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilePanel+.swift"; sourceTree = "<group>"; };
+		6F8B035725867D4100BEC533 /* Dictionary+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+.swift"; sourceTree = "<group>"; };
+		6F8B035F25867D6700BEC533 /* VNRecognizedPointsObservation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VNRecognizedPointsObservation+.swift"; sourceTree = "<group>"; };
+		9ACEA60CDC17CAC8A5872A8B /* Pods-SLR data annotation-SLR data annotationUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLR data annotation-SLR data annotationUITests.release.xcconfig"; path = "Target Support Files/Pods-SLR data annotation-SLR data annotationUITests/Pods-SLR data annotation-SLR data annotationUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AC11E6209BAE3A75CC4E6D27 /* Pods-SLR data annotation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLR data annotation.release.xcconfig"; path = "Target Support Files/Pods-SLR data annotation/Pods-SLR data annotation.release.xcconfig"; sourceTree = "<group>"; };
+		B12817AD5F733CC27B5424A5 /* Pods-SLR data annotation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLR data annotation.debug.xcconfig"; path = "Target Support Files/Pods-SLR data annotation/Pods-SLR data annotation.debug.xcconfig"; sourceTree = "<group>"; };
+		B95D3203553C820D913375D3 /* Pods_SLR_data_annotation_SLR_data_annotationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SLR_data_annotation_SLR_data_annotationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F66B72D0D1FCEED54B3C84FD /* Pods_SLR_data_annotationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SLR_data_annotationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA016001EABA2227F7E4C87F /* Pods-SLR data annotationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLR data annotationTests.debug.xcconfig"; path = "Target Support Files/Pods-SLR data annotationTests/Pods-SLR data annotationTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957B4B8F9F959FEDB8F96DA6 /* Pods_SLR_data_annotation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F31A8FDCF1582EFD1985C45 /* Pods_SLR_data_annotationTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,12 +101,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26EF7923B8C854EAE11A7499 /* Pods_SLR_data_annotation_SLR_data_annotationUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15106E60E1D5AF4DFACEF96E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				19611A702137370F3DD3429E /* Pods_SLR_data_annotation.framework */,
+				B95D3203553C820D913375D3 /* Pods_SLR_data_annotation_SLR_data_annotationUITests.framework */,
+				F66B72D0D1FCEED54B3C84FD /* Pods_SLR_data_annotationTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6F5FFF9D25852E8100FB5DC2 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +125,8 @@
 				6F5FFFBB25852E8B00FB5DC2 /* SLR data annotationTests */,
 				6F5FFFC625852E8B00FB5DC2 /* SLR data annotationUITests */,
 				6F5FFFA725852E8100FB5DC2 /* Products */,
+				D59389A5FA99EC72FBA810C6 /* Pods */,
+				15106E60E1D5AF4DFACEF96E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,7 +147,6 @@
 				6F5FFFDC25852EC200FB5DC2 /* Managers */,
 				6F5FFFDB25852EB800FB5DC2 /* Configuration */,
 				6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */,
-				6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */,
 				6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */,
 				6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */,
 				6F5FFFB225852E8B00FB5DC2 /* Info.plist */,
@@ -165,6 +195,7 @@
 		6F5FFFDC25852EC200FB5DC2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */,
 				6F5FFFDD25852ECE00FB5DC2 /* DatasetManager.swift */,
 				6F5FFFDF25852ECE00FB5DC2 /* DataStructuringManager.swift */,
 				6F5FFFE025852ECE00FB5DC2 /* VideoProcessingManager.swift */,
@@ -176,8 +207,23 @@
 			isa = PBXGroup;
 			children = (
 				6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */,
+				6F8B035725867D4100BEC533 /* Dictionary+.swift */,
+				6F8B035F25867D6700BEC533 /* VNRecognizedPointsObservation+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D59389A5FA99EC72FBA810C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B12817AD5F733CC27B5424A5 /* Pods-SLR data annotation.debug.xcconfig */,
+				AC11E6209BAE3A75CC4E6D27 /* Pods-SLR data annotation.release.xcconfig */,
+				1334C06E3EFD7B1F3985504D /* Pods-SLR data annotation-SLR data annotationUITests.debug.xcconfig */,
+				9ACEA60CDC17CAC8A5872A8B /* Pods-SLR data annotation-SLR data annotationUITests.release.xcconfig */,
+				FA016001EABA2227F7E4C87F /* Pods-SLR data annotationTests.debug.xcconfig */,
+				0C80CC81847852A0EFB340AB /* Pods-SLR data annotationTests.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +233,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F5FFFCC25852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotation" */;
 			buildPhases = (
+				3AC0FBF3CF981937BC0E2548 /* [CP] Check Pods Manifest.lock */,
+				6F8B037025867EB600BEC533 /* Swiftlint */,
 				6F5FFFA225852E8100FB5DC2 /* Sources */,
 				6F5FFFA325852E8100FB5DC2 /* Frameworks */,
 				6F5FFFA425852E8100FB5DC2 /* Resources */,
@@ -204,6 +252,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F5FFFCF25852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotationTests" */;
 			buildPhases = (
+				64415B9C833DB4B34620FB0A /* [CP] Check Pods Manifest.lock */,
 				6F5FFFB425852E8B00FB5DC2 /* Sources */,
 				6F5FFFB525852E8B00FB5DC2 /* Frameworks */,
 				6F5FFFB625852E8B00FB5DC2 /* Resources */,
@@ -222,6 +271,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F5FFFD225852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotationUITests" */;
 			buildPhases = (
+				37765FDE7877BE2D5899AF43 /* [CP] Check Pods Manifest.lock */,
 				6F5FFFBF25852E8B00FB5DC2 /* Sources */,
 				6F5FFFC025852E8B00FB5DC2 /* Frameworks */,
 				6F5FFFC125852E8B00FB5DC2 /* Resources */,
@@ -304,6 +354,93 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37765FDE7877BE2D5899AF43 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SLR data annotation-SLR data annotationUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3AC0FBF3CF981937BC0E2548 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SLR data annotation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64415B9C833DB4B34620FB0A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SLR data annotationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F8B037025867EB600BEC533 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6F5FFFA225852E8100FB5DC2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -313,6 +450,8 @@
 				6F5FFFE125852ECE00FB5DC2 /* DatasetManager.swift in Sources */,
 				6F5FFFED25852ED900FB5DC2 /* MachineLearningConfiguration.swift in Sources */,
 				6F5FFFE425852ECE00FB5DC2 /* VideoProcessingManager.swift in Sources */,
+				6F8B035825867D4100BEC533 /* Dictionary+.swift in Sources */,
+				6F8B036025867D6700BEC533 /* VNRecognizedPointsObservation+.swift in Sources */,
 				6F5FFFFB258538C300FB5DC2 /* FilePanel+.swift in Sources */,
 				6F402EDE258674EB0036A33E /* ObservationTerminology.swift in Sources */,
 				6F5FFFEC25852ED900FB5DC2 /* ObservationConfiguration.swift in Sources */,
@@ -471,6 +610,7 @@
 		};
 		6F5FFFCD25852E8B00FB5DC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B12817AD5F733CC27B5424A5 /* Pods-SLR data annotation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -495,6 +635,7 @@
 		};
 		6F5FFFCE25852E8B00FB5DC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC11E6209BAE3A75CC4E6D27 /* Pods-SLR data annotation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -519,6 +660,7 @@
 		};
 		6F5FFFD025852E8B00FB5DC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA016001EABA2227F7E4C87F /* Pods-SLR data annotationTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -541,6 +683,7 @@
 		};
 		6F5FFFD125852E8B00FB5DC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C80CC81847852A0EFB340AB /* Pods-SLR data annotationTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -563,6 +706,7 @@
 		};
 		6F5FFFD325852E8B00FB5DC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1334C06E3EFD7B1F3985504D /* Pods-SLR data annotation-SLR data annotationUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -583,6 +727,7 @@
 		};
 		6F5FFFD425852E8B00FB5DC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9ACEA60CDC17CAC8A5872A8B /* Pods-SLR data annotation-SLR data annotationUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

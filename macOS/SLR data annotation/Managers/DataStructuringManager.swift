@@ -12,18 +12,12 @@ import Vision
 
 class DataStructuringManager {
 
-    let observationConfiguration: ObservationConfiguration
-
     ///
     /// Representations of the possible errors occuring in this context
     ///
     enum OutputProcessingError: Error {
         case invalidData
         case structuringData
-    }
-
-    init(observationConfiguration: ObservationConfiguration) {
-        self.observationConfiguration = observationConfiguration
     }
 
     ///
@@ -159,7 +153,7 @@ class DataStructuringManager {
             let analyzedData = analysis.getData()
 
             // Append data for body landmarks
-            if observationConfiguration.desiredDataAnnotations.contains(.bodyLandmarks) {
+            if ObservationConfiguration.desiredDataAnnotations.contains(.bodyLandmarks) {
                 for (key, value) in
                     convertBodyLandmarksToMLData(recognizedLandmarks: analyzedData.0) {
                     stackedData.add(value, toArrayOn: key)
@@ -167,14 +161,14 @@ class DataStructuringManager {
             }
 
             // Append data for hand landmarks
-            if observationConfiguration.desiredDataAnnotations.contains(.handLandmarks) {
+            if ObservationConfiguration.desiredDataAnnotations.contains(.handLandmarks) {
                 for (key, value) in convertHandLandmarksToMLData(recognizedLandmarks: analyzedData.1) {
                     stackedData.add(value, toArrayOn: key)
                 }
             }
 
             // Append data for face landmarks
-            if observationConfiguration.desiredDataAnnotations.contains(.faceLandmarks) {
+            if ObservationConfiguration.desiredDataAnnotations.contains(.faceLandmarks) {
                 for (key, value) in convertFaceLandmarksToMLData(recognizedLandmarks: analyzedData.2) {
                     stackedData.add(value, toArrayOn: key)
                 }

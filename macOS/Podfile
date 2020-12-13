@@ -1,0 +1,19 @@
+platform :macos, '11.0'
+
+target 'SLR data annotation' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for SLR data annotation
+  pod 'SwiftLint'
+
+  target 'SLR data annotationTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'SLR data annotationUITests' do
+    # Pods for testing
+  end
+
+end

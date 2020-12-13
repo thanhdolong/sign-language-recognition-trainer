@@ -30,23 +30,3 @@ extension NSOpenPanel {
 
 extension NSSavePanel {
 }
-
-extension VNHumanBodyPoseObservation.JointName {
-    func stringValue() -> String {
-        guard let label = ObservationTerminology.bodyLandmarksKeysToLabels[self] else { fatalError("Cannot converse landamard") }
-        return label
-    }
-}
-
-extension VNHumanHandPoseObservation.JointName {
-    func stringValue() -> String {
-        guard let label = ObservationTerminology.handLandmarksKeysToLabels[self] else { fatalError("Cannot converse landamard") }
-        return label
-    }
-}
-
-extension Dictionary {
-    mutating func add<T>(_ element: T, toArrayOn key: Key) where Value == [T] {
-        self[key] == nil ? self[key] = [element] : self[key]?.append(element)
-    }
-}

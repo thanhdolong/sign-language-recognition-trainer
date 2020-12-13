@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 
-public class VideoProcessingManager {
+class VideoProcessingManager {
     
     ///
     /// Processes all of the frames from the given video as a list of CGFrames.
@@ -21,7 +21,7 @@ public class VideoProcessingManager {
     ///
     /// - Returns: Array of frames as CGImages
     ///
-    public static func getAllFrames(videoUrl: URL, fps: Int) -> [CGImage] {
+    func getAllFrames(videoUrl: URL, fps: Int) -> [CGImage] {
         // Import the video into AVFoundation
         let asset = AVAsset(url: videoUrl)
         let duration = CMTimeGetSeconds(asset.duration)
@@ -57,7 +57,7 @@ public class VideoProcessingManager {
     ///
     /// - Returns: Desired frame as CGImage
     ///
-    private static func getFrame(fromTime: Float64, generator: AVAssetImageGenerator) -> CGImage? {
+    func getFrame(fromTime: Float64, generator: AVAssetImageGenerator) -> CGImage? {
         let image: CGImage
         
         // Convert the time to the supported CMTime
@@ -81,7 +81,7 @@ public class VideoProcessingManager {
     ///
     /// - Returns: CGSize of the given video
     ///
-    public static func getVideoSize(videoUrl: URL) -> CGSize {
+    func getVideoSize(videoUrl: URL) -> CGSize {
         // Import the video into AVFoundation
         let asset = AVAsset(url: videoUrl)
         guard let track = asset.tracks(withMediaType: AVMediaType.video).first else { return CGSize() }
