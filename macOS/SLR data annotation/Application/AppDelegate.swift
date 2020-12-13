@@ -11,7 +11,7 @@ import SwiftUI
 struct SLRDataAnnotationApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: ContentView.ViewModel())
         }
     }
 }

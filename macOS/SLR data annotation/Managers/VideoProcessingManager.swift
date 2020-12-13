@@ -20,30 +20,34 @@ class VideoProcessingManager {
     ///
     /// - Returns: Array of frames as CGImages
     ///
-    func getAllFrames(videoUrl: URL, fps: Int) -> [CGImage] {
-        // Import the video into AVFoundation
-        let asset = AVAsset(url: videoUrl)
-        let duration = CMTimeGetSeconds(asset.duration)
+    func getAllFrames(videoUrl: URL, fps: Int, completion: @escaping ([CGImage]) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            // Import the video into AVFoundation
+            let asset = AVAsset(url: videoUrl)
+            let duration = CMTimeGetSeconds(asset.duration)
 
-        let generator = AVAssetImageGenerator(asset: asset)
-        generator.appliesPreferredTrackTransform = true
+            let generator = AVAssetImageGenerator(asset: asset)
+            generator.appliesPreferredTrackTransform = true
 
-        var frames = [CGImage]()
+            var frames = [CGImage]()
 
-        // Process the frames for given frames per second rate at every second
-        for secondsIndex in 0 ..< Int(ceil(duration)) {
-            for frameIndex in 0 ..< fps {
-                let timeForFrame = Double(secondsIndex) + Double(frameIndex) * (1.0 / Double(fps))
-                if timeForFrame < duration {
-                    frames.append(getFrame(fromTime: Float64(timeForFrame), generator: generator)!)
+            // Process the frames for given frames per second rate at every second
+            for secondsIndex in 0 ..< Int(ceil(duration)) {
+                for frameIndex in 0 ..< fps {
+                    let timeForFrame = Double(secondsIndex) + Double(frameIndex) * (1.0 / Double(fps))
+                    if timeForFrame < duration, let frame = self.getFrame(fromTime: Float64(timeForFrame), generator: generator) {
+                        frames.append(frame)
+                    }
                 }
             }
+
+            // Prevent additional crashes with the AVFoundation processing
+            generator.cancelAllCGImageGeneration()
+
+            DispatchQueue.main.async {
+                completion(frames)
+            }
         }
-
-        // Prevent additional crashes with the AVFoundation processing
-        generator.cancelAllCGImageGeneration()
-
-        return frames
     }
 
     ///

@@ -54,21 +54,23 @@ class VisionAnalysisManager {
     ///
     public func annotate() {
         // Generate the individual frames from the vido
-        self.frames = videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
-        self.framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
+        videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps, completion: { [unowned self] frames in
+            self.frames = frames
+            self.framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
 
-        // Calculate the size of the video
-        self.videoSize = videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
+            // Calculate the size of the video
+            self.videoSize = self.videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
 
-        for frame in frames {
-            // Create a VNImageRequestHandler for each of the desired frames
-            let handler = VNImageRequestHandler(cgImage: frame, options: [:])
+            for frame in frames {
+                // Create a VNImageRequestHandler for each of the desired frames
+                let handler = VNImageRequestHandler(cgImage: frame, options: [:])
 
-            // Process the Vision data for all of the
-            invokeBodyPoseDetection(handler: handler)
-            invokeHandPoseDetection(handler: handler)
-            invokeFaceLandmarksDetection(handler: handler)
-        }
+                // Process the Vision data for all of the
+                self.invokeBodyPoseDetection(handler: handler)
+                self.invokeHandPoseDetection(handler: handler)
+                self.invokeFaceLandmarksDetection(handler: handler)
+            }
+        })
     }
 
     ///
@@ -158,8 +160,9 @@ class VisionAnalysisManager {
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.bodyPoseDetectionThreshold {
             // Keep the point for further analysis if relevant
-            if (ObservationConfiguration.requestedBodyLandmarks.contains(key)) ||
-                ObservationConfiguration.requestedBodyLandmarks.isEmpty {
+            let requestedBodyLandmarks = ObservationConfiguration.requestedBodyLandmarks
+
+            if (requestedBodyLandmarks.contains(key)) || requestedBodyLandmarks.isEmpty {
                 keyBodyLandmarks[key] = point
             }
         }
@@ -221,8 +224,9 @@ class VisionAnalysisManager {
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.handPoseDetectionThreshold {
             // Keep the point for further analysis if relevant
-            if (ObservationConfiguration.requestedHandLandmarks.contains(key)) ||
-                ObservationConfiguration.requestedHandLandmarks.isEmpty {
+            let requestedHandLandmarks = ObservationConfiguration.requestedHandLandmarks
+
+            if (requestedHandLandmarks.contains(key)) || requestedHandLandmarks.isEmpty {
                 keyHandLandmarks[key] = point
             }
         }
@@ -273,10 +277,7 @@ class VisionAnalysisManager {
 
     func processFaceLandmarksObservation(_ observation: VNFaceObservation) -> [CGPoint] {
         // Retrieve all points
-        guard let recognizedLandmarks = observation.landmarks else {
-            return []
-        }
-
+        guard let recognizedLandmarks = observation.landmarks else { return [] }
         return recognizedLandmarks.allPoints?.normalizedPoints ?? []
     }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Dictionary {
-    mutating func add<T>(_ element: T, toArrayOn key: Key) where Value == [T] {
+    mutating func add<Element>(_ element: Element, toArrayOn key: Key) where Value == [Element] {
         self[key] == nil ? self[key] = [element] : self[key]?.append(element)
     }
 }
