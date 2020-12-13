@@ -30,6 +30,8 @@ public class OutputDataStructuringManager {
     ///
     public static func combineData(labels: [String], visionAnalyses: [VisionAnalysisManager]) throws -> MLDataTable {
         // Ensure that the data is equally long
+        print(labels)
+        print(visionAnalyses.count)
         guard labels.count == visionAnalyses.count else {
             throw OutputProcessingError.invalidData
         }

@@ -1,0 +1,646 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6F402EDE258674EB0036A33E /* ObservationTerminology.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F402EDD258674EB0036A33E /* ObservationTerminology.swift */; };
+		6F5FFFAA25852E8100FB5DC2 /* SLR_data_annotationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */; };
+		6F5FFFAC25852E8100FB5DC2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */; };
+		6F5FFFAE25852E8B00FB5DC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */; };
+		6F5FFFB125852E8B00FB5DC2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5FFFB025852E8B00FB5DC2 /* Preview Assets.xcassets */; };
+		6F5FFFBD25852E8B00FB5DC2 /* SLR_data_annotationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFBC25852E8B00FB5DC2 /* SLR_data_annotationTests.swift */; };
+		6F5FFFC825852E8B00FB5DC2 /* SLR_data_annotationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFC725852E8B00FB5DC2 /* SLR_data_annotationUITests.swift */; };
+		6F5FFFE125852ECE00FB5DC2 /* DatasetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFDD25852ECE00FB5DC2 /* DatasetManager.swift */; };
+		6F5FFFE325852ECE00FB5DC2 /* DataStructuringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFDF25852ECE00FB5DC2 /* DataStructuringManager.swift */; };
+		6F5FFFE425852ECE00FB5DC2 /* VideoProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFE025852ECE00FB5DC2 /* VideoProcessingManager.swift */; };
+		6F5FFFEC25852ED900FB5DC2 /* ObservationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFE825852ED900FB5DC2 /* ObservationConfiguration.swift */; };
+		6F5FFFED25852ED900FB5DC2 /* MachineLearningConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFE925852ED900FB5DC2 /* MachineLearningConfiguration.swift */; };
+		6F5FFFF425852EE900FB5DC2 /* VisionAnalysisManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */; };
+		6F5FFFFB258538C300FB5DC2 /* FilePanel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6F5FFFB925852E8B00FB5DC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F5FFF9E25852E8100FB5DC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F5FFFA525852E8100FB5DC2;
+			remoteInfo = "SLR data annotation";
+		};
+		6F5FFFC425852E8B00FB5DC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F5FFF9E25852E8100FB5DC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F5FFFA525852E8100FB5DC2;
+			remoteInfo = "SLR data annotation";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6F402EDD258674EB0036A33E /* ObservationTerminology.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationTerminology.swift; sourceTree = "<group>"; };
+		6F5FFFA625852E8100FB5DC2 /* SLR data annotation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SLR data annotation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLR_data_annotationApp.swift; sourceTree = "<group>"; };
+		6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6F5FFFB025852E8B00FB5DC2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6F5FFFB225852E8B00FB5DC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F5FFFB325852E8B00FB5DC2 /* SLR_data_annotation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SLR_data_annotation.entitlements; sourceTree = "<group>"; };
+		6F5FFFB825852E8B00FB5DC2 /* SLR data annotationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SLR data annotationTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F5FFFBC25852E8B00FB5DC2 /* SLR_data_annotationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLR_data_annotationTests.swift; sourceTree = "<group>"; };
+		6F5FFFBE25852E8B00FB5DC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F5FFFC325852E8B00FB5DC2 /* SLR data annotationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SLR data annotationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F5FFFC725852E8B00FB5DC2 /* SLR_data_annotationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLR_data_annotationUITests.swift; sourceTree = "<group>"; };
+		6F5FFFC925852E8B00FB5DC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F5FFFDD25852ECE00FB5DC2 /* DatasetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatasetManager.swift; sourceTree = "<group>"; };
+		6F5FFFDF25852ECE00FB5DC2 /* DataStructuringManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStructuringManager.swift; sourceTree = "<group>"; };
+		6F5FFFE025852ECE00FB5DC2 /* VideoProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoProcessingManager.swift; sourceTree = "<group>"; };
+		6F5FFFE825852ED900FB5DC2 /* ObservationConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservationConfiguration.swift; sourceTree = "<group>"; };
+		6F5FFFE925852ED900FB5DC2 /* MachineLearningConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineLearningConfiguration.swift; sourceTree = "<group>"; };
+		6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionAnalysisManager.swift; sourceTree = "<group>"; };
+		6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilePanel+.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6F5FFFA325852E8100FB5DC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5FFFB525852E8B00FB5DC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5FFFC025852E8B00FB5DC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6F5FFF9D25852E8100FB5DC2 = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFA825852E8100FB5DC2 /* SLR data annotation */,
+				6F5FFFBB25852E8B00FB5DC2 /* SLR data annotationTests */,
+				6F5FFFC625852E8B00FB5DC2 /* SLR data annotationUITests */,
+				6F5FFFA725852E8100FB5DC2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6F5FFFA725852E8100FB5DC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFA625852E8100FB5DC2 /* SLR data annotation.app */,
+				6F5FFFB825852E8B00FB5DC2 /* SLR data annotationTests.xctest */,
+				6F5FFFC325852E8B00FB5DC2 /* SLR data annotationUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6F5FFFA825852E8100FB5DC2 /* SLR data annotation */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFF9258538B300FB5DC2 /* Extensions */,
+				6F5FFFDC25852EC200FB5DC2 /* Managers */,
+				6F5FFFDB25852EB800FB5DC2 /* Configuration */,
+				6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */,
+				6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */,
+				6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */,
+				6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */,
+				6F5FFFB225852E8B00FB5DC2 /* Info.plist */,
+				6F5FFFB325852E8B00FB5DC2 /* SLR_data_annotation.entitlements */,
+				6F5FFFAF25852E8B00FB5DC2 /* Preview Content */,
+			);
+			path = "SLR data annotation";
+			sourceTree = "<group>";
+		};
+		6F5FFFAF25852E8B00FB5DC2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFB025852E8B00FB5DC2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6F5FFFBB25852E8B00FB5DC2 /* SLR data annotationTests */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFBC25852E8B00FB5DC2 /* SLR_data_annotationTests.swift */,
+				6F5FFFBE25852E8B00FB5DC2 /* Info.plist */,
+			);
+			path = "SLR data annotationTests";
+			sourceTree = "<group>";
+		};
+		6F5FFFC625852E8B00FB5DC2 /* SLR data annotationUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFC725852E8B00FB5DC2 /* SLR_data_annotationUITests.swift */,
+				6F5FFFC925852E8B00FB5DC2 /* Info.plist */,
+			);
+			path = "SLR data annotationUITests";
+			sourceTree = "<group>";
+		};
+		6F5FFFDB25852EB800FB5DC2 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFE825852ED900FB5DC2 /* ObservationConfiguration.swift */,
+				6F5FFFE925852ED900FB5DC2 /* MachineLearningConfiguration.swift */,
+				6F402EDD258674EB0036A33E /* ObservationTerminology.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		6F5FFFDC25852EC200FB5DC2 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFDD25852ECE00FB5DC2 /* DatasetManager.swift */,
+				6F5FFFDF25852ECE00FB5DC2 /* DataStructuringManager.swift */,
+				6F5FFFE025852ECE00FB5DC2 /* VideoProcessingManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		6F5FFFF9258538B300FB5DC2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6F5FFFA525852E8100FB5DC2 /* SLR data annotation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F5FFFCC25852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotation" */;
+			buildPhases = (
+				6F5FFFA225852E8100FB5DC2 /* Sources */,
+				6F5FFFA325852E8100FB5DC2 /* Frameworks */,
+				6F5FFFA425852E8100FB5DC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SLR data annotation";
+			productName = "SLR data annotation";
+			productReference = 6F5FFFA625852E8100FB5DC2 /* SLR data annotation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6F5FFFB725852E8B00FB5DC2 /* SLR data annotationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F5FFFCF25852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotationTests" */;
+			buildPhases = (
+				6F5FFFB425852E8B00FB5DC2 /* Sources */,
+				6F5FFFB525852E8B00FB5DC2 /* Frameworks */,
+				6F5FFFB625852E8B00FB5DC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F5FFFBA25852E8B00FB5DC2 /* PBXTargetDependency */,
+			);
+			name = "SLR data annotationTests";
+			productName = "SLR data annotationTests";
+			productReference = 6F5FFFB825852E8B00FB5DC2 /* SLR data annotationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6F5FFFC225852E8B00FB5DC2 /* SLR data annotationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F5FFFD225852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotationUITests" */;
+			buildPhases = (
+				6F5FFFBF25852E8B00FB5DC2 /* Sources */,
+				6F5FFFC025852E8B00FB5DC2 /* Frameworks */,
+				6F5FFFC125852E8B00FB5DC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F5FFFC525852E8B00FB5DC2 /* PBXTargetDependency */,
+			);
+			name = "SLR data annotationUITests";
+			productName = "SLR data annotationUITests";
+			productReference = 6F5FFFC325852E8B00FB5DC2 /* SLR data annotationUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6F5FFF9E25852E8100FB5DC2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1220;
+				TargetAttributes = {
+					6F5FFFA525852E8100FB5DC2 = {
+						CreatedOnToolsVersion = 12.2;
+					};
+					6F5FFFB725852E8B00FB5DC2 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = 6F5FFFA525852E8100FB5DC2;
+					};
+					6F5FFFC225852E8B00FB5DC2 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = 6F5FFFA525852E8100FB5DC2;
+					};
+				};
+			};
+			buildConfigurationList = 6F5FFFA125852E8100FB5DC2 /* Build configuration list for PBXProject "SLR data annotation" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6F5FFF9D25852E8100FB5DC2;
+			productRefGroup = 6F5FFFA725852E8100FB5DC2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6F5FFFA525852E8100FB5DC2 /* SLR data annotation */,
+				6F5FFFB725852E8B00FB5DC2 /* SLR data annotationTests */,
+				6F5FFFC225852E8B00FB5DC2 /* SLR data annotationUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6F5FFFA425852E8100FB5DC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5FFFB125852E8B00FB5DC2 /* Preview Assets.xcassets in Resources */,
+				6F5FFFAE25852E8B00FB5DC2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5FFFB625852E8B00FB5DC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5FFFC125852E8B00FB5DC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6F5FFFA225852E8100FB5DC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5FFFAC25852E8100FB5DC2 /* ContentView.swift in Sources */,
+				6F5FFFE125852ECE00FB5DC2 /* DatasetManager.swift in Sources */,
+				6F5FFFED25852ED900FB5DC2 /* MachineLearningConfiguration.swift in Sources */,
+				6F5FFFE425852ECE00FB5DC2 /* VideoProcessingManager.swift in Sources */,
+				6F5FFFFB258538C300FB5DC2 /* FilePanel+.swift in Sources */,
+				6F402EDE258674EB0036A33E /* ObservationTerminology.swift in Sources */,
+				6F5FFFEC25852ED900FB5DC2 /* ObservationConfiguration.swift in Sources */,
+				6F5FFFF425852EE900FB5DC2 /* VisionAnalysisManager.swift in Sources */,
+				6F5FFFE325852ECE00FB5DC2 /* DataStructuringManager.swift in Sources */,
+				6F5FFFAA25852E8100FB5DC2 /* SLR_data_annotationApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5FFFB425852E8B00FB5DC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5FFFBD25852E8B00FB5DC2 /* SLR_data_annotationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5FFFBF25852E8B00FB5DC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5FFFC825852E8B00FB5DC2 /* SLR_data_annotationUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6F5FFFBA25852E8B00FB5DC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F5FFFA525852E8100FB5DC2 /* SLR data annotation */;
+			targetProxy = 6F5FFFB925852E8B00FB5DC2 /* PBXContainerItemProxy */;
+		};
+		6F5FFFC525852E8B00FB5DC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F5FFFA525852E8100FB5DC2 /* SLR data annotation */;
+			targetProxy = 6F5FFFC425852E8B00FB5DC2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6F5FFFCA25852E8B00FB5DC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6F5FFFCB25852E8B00FB5DC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		6F5FFFCD25852E8B00FB5DC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SLR data annotation/SLR_data_annotation.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SLR data annotation/Preview Content\"";
+				DEVELOPMENT_TEAM = KW278547Y4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "SLR data annotation/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thanhdolong.SLR-data-annotation";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6F5FFFCE25852E8B00FB5DC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SLR data annotation/SLR_data_annotation.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SLR data annotation/Preview Content\"";
+				DEVELOPMENT_TEAM = KW278547Y4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "SLR data annotation/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thanhdolong.SLR-data-annotation";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6F5FFFD025852E8B00FB5DC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = KW278547Y4;
+				INFOPLIST_FILE = "SLR data annotationTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thanhdolong.SLR-data-annotationTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SLR data annotation.app/Contents/MacOS/SLR data annotation";
+			};
+			name = Debug;
+		};
+		6F5FFFD125852E8B00FB5DC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = KW278547Y4;
+				INFOPLIST_FILE = "SLR data annotationTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thanhdolong.SLR-data-annotationTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SLR data annotation.app/Contents/MacOS/SLR data annotation";
+			};
+			name = Release;
+		};
+		6F5FFFD325852E8B00FB5DC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = KW278547Y4;
+				INFOPLIST_FILE = "SLR data annotationUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thanhdolong.SLR-data-annotationUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "SLR data annotation";
+			};
+			name = Debug;
+		};
+		6F5FFFD425852E8B00FB5DC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = KW278547Y4;
+				INFOPLIST_FILE = "SLR data annotationUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thanhdolong.SLR-data-annotationUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "SLR data annotation";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6F5FFFA125852E8100FB5DC2 /* Build configuration list for PBXProject "SLR data annotation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F5FFFCA25852E8B00FB5DC2 /* Debug */,
+				6F5FFFCB25852E8B00FB5DC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F5FFFCC25852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F5FFFCD25852E8B00FB5DC2 /* Debug */,
+				6F5FFFCE25852E8B00FB5DC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F5FFFCF25852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F5FFFD025852E8B00FB5DC2 /* Debug */,
+				6F5FFFD125852E8B00FB5DC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F5FFFD225852E8B00FB5DC2 /* Build configuration list for PBXNativeTarget "SLR data annotationUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F5FFFD325852E8B00FB5DC2 /* Debug */,
+				6F5FFFD425852E8B00FB5DC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6F5FFF9E25852E8100FB5DC2 /* Project object */;
+}
