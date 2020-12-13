@@ -1,5 +1,5 @@
 //
-//  SLR_data_annotationApp.swift
+//  AppDelegate.swift
 //  SLR data annotation
 //
 //  Created by Thành Đỗ Long on 12.12.2020.

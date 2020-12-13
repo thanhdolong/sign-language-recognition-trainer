@@ -10,7 +10,7 @@
 		1F31A8FDCF1582EFD1985C45 /* Pods_SLR_data_annotationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66B72D0D1FCEED54B3C84FD /* Pods_SLR_data_annotationTests.framework */; };
 		26EF7923B8C854EAE11A7499 /* Pods_SLR_data_annotation_SLR_data_annotationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95D3203553C820D913375D3 /* Pods_SLR_data_annotation_SLR_data_annotationUITests.framework */; };
 		6F402EDE258674EB0036A33E /* ObservationTerminology.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F402EDD258674EB0036A33E /* ObservationTerminology.swift */; };
-		6F5FFFAA25852E8100FB5DC2 /* SLR_data_annotationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */; };
+		6F5FFFAA25852E8100FB5DC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFA925852E8100FB5DC2 /* AppDelegate.swift */; };
 		6F5FFFAC25852E8100FB5DC2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */; };
 		6F5FFFAE25852E8B00FB5DC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */; };
 		6F5FFFB125852E8B00FB5DC2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5FFFB025852E8B00FB5DC2 /* Preview Assets.xcassets */; };
@@ -51,7 +51,7 @@
 		19611A702137370F3DD3429E /* Pods_SLR_data_annotation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SLR_data_annotation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F402EDD258674EB0036A33E /* ObservationTerminology.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationTerminology.swift; sourceTree = "<group>"; };
 		6F5FFFA625852E8100FB5DC2 /* SLR data annotation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SLR data annotation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLR_data_annotationApp.swift; sourceTree = "<group>"; };
+		6F5FFFA925852E8100FB5DC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F5FFFB025852E8B00FB5DC2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -143,25 +143,14 @@
 		6F5FFFA825852E8100FB5DC2 /* SLR data annotation */ = {
 			isa = PBXGroup;
 			children = (
+				6F8B0382258687F200BEC533 /* Application */,
+				6F5FFFDB25852EB800FB5DC2 /* Configuration */,
 				6F5FFFF9258538B300FB5DC2 /* Extensions */,
 				6F5FFFDC25852EC200FB5DC2 /* Managers */,
-				6F5FFFDB25852EB800FB5DC2 /* Configuration */,
-				6F5FFFA925852E8100FB5DC2 /* SLR_data_annotationApp.swift */,
-				6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */,
-				6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */,
-				6F5FFFB225852E8B00FB5DC2 /* Info.plist */,
-				6F5FFFB325852E8B00FB5DC2 /* SLR_data_annotation.entitlements */,
-				6F5FFFAF25852E8B00FB5DC2 /* Preview Content */,
+				6F8B038B2586885500BEC533 /* Resources */,
+				6F8B038A2586884100BEC533 /* Screens */,
 			);
 			path = "SLR data annotation";
-			sourceTree = "<group>";
-		};
-		6F5FFFAF25852E8B00FB5DC2 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				6F5FFFB025852E8B00FB5DC2 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		6F5FFFBB25852E8B00FB5DC2 /* SLR data annotationTests */ = {
@@ -185,8 +174,8 @@
 		6F5FFFDB25852EB800FB5DC2 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				6F5FFFE825852ED900FB5DC2 /* ObservationConfiguration.swift */,
 				6F5FFFE925852ED900FB5DC2 /* MachineLearningConfiguration.swift */,
+				6F5FFFE825852ED900FB5DC2 /* ObservationConfiguration.swift */,
 				6F402EDD258674EB0036A33E /* ObservationTerminology.swift */,
 			);
 			path = Configuration;
@@ -195,10 +184,10 @@
 		6F5FFFDC25852EC200FB5DC2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */,
 				6F5FFFDD25852ECE00FB5DC2 /* DatasetManager.swift */,
 				6F5FFFDF25852ECE00FB5DC2 /* DataStructuringManager.swift */,
 				6F5FFFE025852ECE00FB5DC2 /* VideoProcessingManager.swift */,
+				6F5FFFF325852EE900FB5DC2 /* VisionAnalysisManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -206,11 +195,38 @@
 		6F5FFFF9258538B300FB5DC2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */,
 				6F8B035725867D4100BEC533 /* Dictionary+.swift */,
+				6F5FFFFA258538C300FB5DC2 /* FilePanel+.swift */,
 				6F8B035F25867D6700BEC533 /* VNRecognizedPointsObservation+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6F8B0382258687F200BEC533 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFA925852E8100FB5DC2 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		6F8B038A2586884100BEC533 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFAB25852E8100FB5DC2 /* ContentView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6F8B038B2586885500BEC533 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6F5FFFAD25852E8B00FB5DC2 /* Assets.xcassets */,
+				6F5FFFB225852E8B00FB5DC2 /* Info.plist */,
+				6F5FFFB025852E8B00FB5DC2 /* Preview Assets.xcassets */,
+				6F5FFFB325852E8B00FB5DC2 /* SLR_data_annotation.entitlements */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D59389A5FA99EC72FBA810C6 /* Pods */ = {
@@ -457,7 +473,7 @@
 				6F5FFFEC25852ED900FB5DC2 /* ObservationConfiguration.swift in Sources */,
 				6F5FFFF425852EE900FB5DC2 /* VisionAnalysisManager.swift in Sources */,
 				6F5FFFE325852ECE00FB5DC2 /* DataStructuringManager.swift in Sources */,
-				6F5FFFAA25852E8100FB5DC2 /* SLR_data_annotationApp.swift in Sources */,
+				6F5FFFAA25852E8100FB5DC2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,15 +630,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "SLR data annotation/SLR_data_annotation.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "SLR data annotation/Resources/SLR_data_annotation.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"SLR data annotation/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SLR data annotation/Resources\"";
 				DEVELOPMENT_TEAM = KW278547Y4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "SLR data annotation/Info.plist";
+				INFOPLIST_FILE = "SLR data annotation/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -640,15 +656,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "SLR data annotation/SLR_data_annotation.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "SLR data annotation/Resources/SLR_data_annotation.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"SLR data annotation/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SLR data annotation/Resources\"";
 				DEVELOPMENT_TEAM = KW278547Y4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "SLR data annotation/Info.plist";
+				INFOPLIST_FILE = "SLR data annotation/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
