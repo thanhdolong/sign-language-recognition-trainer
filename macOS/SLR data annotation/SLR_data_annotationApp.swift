@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct SLR_data_annotationApp: App {
+struct SLRDataAnnotationApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

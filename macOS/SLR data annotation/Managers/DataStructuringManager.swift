@@ -1,6 +1,6 @@
 //
 //  DataStructuringManager.swift
-//  SLR_Data_Annotation
+//  SLR data annotation
 //
 //  Created by Matyáš Boháček on 01/12/2020.
 //  Copyright © 2020 Matyáš Boháček. All rights reserved.
@@ -50,7 +50,7 @@ class DataStructuringManager {
             }
 
             // Fill in the values for all potential landmarks that were not captured
-            converted.forEach { key, value in
+            converted.forEach { key, _ in
                 if converted[key]?.count != observationIndex + 1 {
                     converted[key]?.append(0.0)
                 }
@@ -83,7 +83,7 @@ class DataStructuringManager {
             }
 
             // Fill in the values for all potential landmarks that were not captured
-            converted.forEach { key, value in
+            converted.forEach { key, _ in
                 if converted[key]?.count != observationIndex + 1 {
                     converted[key]?.append(0.0)
                 }
@@ -116,7 +116,7 @@ class DataStructuringManager {
             }
 
             // Fill in the values for all potential landmarks that were not captured
-            converted.forEach { key, value in
+            converted.forEach { key, _ in
                 if converted[key]?.count != observationIndex + 1 {
                     converted[key]?.append(0.0)
                 }
@@ -180,10 +180,8 @@ class DataStructuringManager {
             videoMetadata["fps"]?.append(Double(analysis.fps))
         }
 
-        for (key, value) in stackedData {
-            if !value.isEmpty {
-                convertedToMLData[key] = value
-            }
+        for (key, value) in stackedData where value.isEmpty == false {
+            convertedToMLData[key] = value
         }
 
         convertedToMLData["video_size_width"] = videoMetadata["width"]

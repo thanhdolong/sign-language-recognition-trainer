@@ -7,6 +7,7 @@
 
 import XCTest
 
+//swiftlint:disable type_name line_length
 class SLR_data_annotationUITests: XCTestCase {
 
     override func setUpWithError() throws {

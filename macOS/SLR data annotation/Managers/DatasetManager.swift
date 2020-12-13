@@ -1,6 +1,6 @@
 //
 //  DatasetManager.swift
-//  SLR_Data_Annotation
+//  SLR data annotation
 //
 //  Created by Matyáš Boháček on 07/12/2020.
 //  Copyright © 2020 Matyáš Boháček. All rights reserved.
@@ -18,7 +18,6 @@ class DatasetManager {
     enum DatasetError: Error {
         case invalidDirectoryContents
     }
-
 
     // MARK: Properties
 

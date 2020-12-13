@@ -13,8 +13,8 @@ struct ObservationTerminology {
     /// `String` identifiers for the body landmarks.
     ///
     static let bodyLandmarksKeysToLabels: [VNHumanBodyPoseObservation.JointName: String] = [
-        .nose : "nose",
-        .rightEye : "rightEye",
+        .nose: "nose",
+        .rightEye: "rightEye",
         .leftEye: "leftEye",
         .rightEar: "rightEar",
         .leftEar: "leftEar",

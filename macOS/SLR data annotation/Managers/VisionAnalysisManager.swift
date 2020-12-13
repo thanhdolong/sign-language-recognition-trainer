@@ -1,6 +1,6 @@
 //
 //  VisionAnalysisManager.swift
-//  SLR_Data_Annotation
+//  SLR data annotation
 //
 //  Created by Matyáš Boháček on 01/12/2020.
 //  Copyright © 2020 Matyáš Boháček. All rights reserved.
@@ -30,7 +30,6 @@ class VisionAnalysisManager {
     private var keyBodyLandmarks = KeyBodyLandmarks()
     private var keyHandLandmarks = KeyHandLandmarks()
     private var keyFaceLandmarks = KeyFaceLandmarks()
-
 
     // MARK: Methods
 
@@ -97,16 +96,13 @@ class VisionAnalysisManager {
     ///
     public func isAnnotated() -> Bool {
         for frameStatus in self.framesAnnotated {
-            for (_, value) in frameStatus {
-                if value == false {
+            for result in frameStatus where result.value == false {
                     return false
-                }
             }
         }
 
         return true
     }
-
 
     // MARK: Body landmarks detection
 
@@ -157,17 +153,14 @@ class VisionAnalysisManager {
             return [:]
         }
 
-
         var keyBodyLandmarks = [VNHumanBodyPoseObservation.JointName: VNPoint]()
 
         // Process all of the recognized landmarks
-        for (key, point) in recognizedPoints {
-            if point.confidence > MachineLearningConfiguration.bodyPoseDetectionThreshold {
-                // Keep the point for further analysis if relevant
-                if (ObservationConfiguration.requestedBodyLandmarks.contains(key)) ||
-                    ObservationConfiguration.requestedBodyLandmarks.isEmpty {
-                    keyBodyLandmarks[key] = point
-                }
+        for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.bodyPoseDetectionThreshold {
+            // Keep the point for further analysis if relevant
+            if (ObservationConfiguration.requestedBodyLandmarks.contains(key)) ||
+                ObservationConfiguration.requestedBodyLandmarks.isEmpty {
+                keyBodyLandmarks[key] = point
             }
         }
 
@@ -217,22 +210,20 @@ class VisionAnalysisManager {
         self.framesAnnotated[self.keyHandLandmarks.count - 1]["hands"] = true
     }
 
-    func processHandPoseObservation(_ observation: VNHumanHandPoseObservation) -> [VNHumanHandPoseObservation.JointName : VNPoint] {
+    func processHandPoseObservation(_ observation: VNHumanHandPoseObservation) -> [VNHumanHandPoseObservation.JointName: VNPoint] {
         // Retrieve all points.
         guard let recognizedPoints = try? observation.recognizedPoints(.all) else {
             return [:]
         }
 
-        var keyHandLandmarks = [VNHumanHandPoseObservation.JointName : VNPoint]()
+        var keyHandLandmarks = [VNHumanHandPoseObservation.JointName: VNPoint]()
 
         // Process all of the recognized landmarks
-        for (key, point) in recognizedPoints {
-            if point.confidence > MachineLearningConfiguration.handPoseDetectionThreshold {
-                // Keep the point for further analysis if relevant
-                if (ObservationConfiguration.requestedHandLandmarks.contains(key)) ||
-                    ObservationConfiguration.requestedHandLandmarks.isEmpty {
-                    keyHandLandmarks[key] = point
-                }
+        for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.handPoseDetectionThreshold {
+            // Keep the point for further analysis if relevant
+            if (ObservationConfiguration.requestedHandLandmarks.contains(key)) ||
+                ObservationConfiguration.requestedHandLandmarks.isEmpty {
+                keyHandLandmarks[key] = point
             }
         }
 

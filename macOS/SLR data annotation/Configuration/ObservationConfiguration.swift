@@ -1,6 +1,6 @@
 //
 //  ObservationConfiguration.swift
-//  SLR_Data_Annotation
+//  SLR data annotation
 //
 //  Created by Matyáš Boháček on 01/12/2020.
 //  Copyright © 2020 Matyáš Boháček. All rights reserved.
@@ -8,7 +8,6 @@
 
 import Foundation
 import Vision
-
 
 struct ObservationConfiguration {
     enum ObservationType {

@@ -9,7 +9,7 @@ import Cocoa
 import Vision
 
 extension NSOpenPanel {
-    static func openVideo(completion: @escaping (_ result: Result<URL, Error>) -> ()) {
+    static func openVideo(completion: @escaping (_ result: Result<URL, Error>) -> Void) {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = true

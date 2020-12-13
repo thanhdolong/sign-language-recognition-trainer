@@ -1,5 +1,11 @@
-import Foundation
+//
+//  MachineLearningConfiguration.swift
+//  SLR data annotation
+//
+//  Created by Thành Đỗ Long on 13.12.2020.
+//
 
+import Foundation
 
 struct MachineLearningConfiguration {
 

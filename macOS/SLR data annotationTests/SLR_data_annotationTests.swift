@@ -8,6 +8,7 @@
 import XCTest
 @testable import SLR_data_annotation
 
+//swiftlint:disable type_name
 class SLR_data_annotationTests: XCTestCase {
 
     override func setUpWithError() throws {

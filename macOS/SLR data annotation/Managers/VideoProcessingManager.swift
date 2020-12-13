@@ -1,6 +1,6 @@
 //
 //  VideoProcessingManager.swift
-//  SLR_Data_Annotation
+//  SLR data annotation
 //
 //  Created by Matyáš Boháček on 01/12/2020.
 //  Copyright © 2020 Matyáš Boháček. All rights reserved.
@@ -9,9 +9,8 @@
 import Foundation
 import AVFoundation
 
-
 class VideoProcessingManager {
-    
+
     ///
     /// Processes all of the frames from the given video as a list of CGFrames.
     ///
@@ -25,12 +24,12 @@ class VideoProcessingManager {
         // Import the video into AVFoundation
         let asset = AVAsset(url: videoUrl)
         let duration = CMTimeGetSeconds(asset.duration)
-            
-        let generator = AVAssetImageGenerator(asset:asset)
+
+        let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
-           
+
         var frames = [CGImage]()
-        
+
         // Process the frames for given frames per second rate at every second
         for secondsIndex in 0 ..< Int(ceil(duration)) {
             for frameIndex in 0 ..< fps {
@@ -40,10 +39,10 @@ class VideoProcessingManager {
                 }
             }
         }
-            
+
         // Prevent additional crashes with the AVFoundation processing
         generator.cancelAllCGImageGeneration()
-        
+
         return frames
     }
 
@@ -59,20 +58,20 @@ class VideoProcessingManager {
     ///
     func getFrame(fromTime: Float64, generator: AVAssetImageGenerator) -> CGImage? {
         let image: CGImage
-        
+
         // Convert the time to the supported CMTime
         let time = CMTimeMakeWithSeconds(fromTime, preferredTimescale: 600)
-        
+
         do {
             // Convert the image at the given time
            try image = generator.copyCGImage(at: time, actualTime: nil)
         } catch {
             return nil
         }
-        
+
         return image
     }
-    
+
     ///
     /// Calculates the given video's size.
     ///
@@ -85,12 +84,12 @@ class VideoProcessingManager {
         // Import the video into AVFoundation
         let asset = AVAsset(url: videoUrl)
         guard let track = asset.tracks(withMediaType: AVMediaType.video).first else { return CGSize() }
-        
+
         // Calculate the size using the transformation from the track
         let size = track.naturalSize.applying(track.preferredTransform)
-        
+
         // Convert the data into CGSize
         return CGSize(width: abs(size.width), height: abs(size.height))
     }
-    
+
 }
