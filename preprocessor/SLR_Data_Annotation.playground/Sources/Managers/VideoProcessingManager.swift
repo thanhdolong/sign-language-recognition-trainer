@@ -23,11 +23,13 @@ public class VideoProcessingManager {
     ///
     public static func getAllFrames(videoUrl: URL, fps: Int) -> [CGImage] {
         // Import the video into AVFoundation
-        let asset = AVAsset(url: videoUrl)
+        let asset = AVURLAsset(url: videoUrl)
         let duration = CMTimeGetSeconds(asset.duration)
             
         let generator = AVAssetImageGenerator(asset:asset)
         generator.appliesPreferredTrackTransform = true
+        generator.apertureMode = AVAssetImageGenerator.ApertureMode.encodedPixels
+        generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: 100)
            
         var frames = [CGImage]()
         
@@ -61,7 +63,7 @@ public class VideoProcessingManager {
         let image: CGImage
         
         // Convert the time to the supported CMTime
-        let time = CMTimeMakeWithSeconds(fromTime, preferredTimescale: 600)
+        let time = CMTimeMakeWithSeconds(fromTime, preferredTimescale: 60)
         
         do {
             // Convert the image at the given time
