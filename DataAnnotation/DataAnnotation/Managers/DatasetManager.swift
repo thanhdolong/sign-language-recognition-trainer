@@ -65,27 +65,25 @@ class DatasetManager {
 
         // Create annotations managers for each of the labels
         do {
-            for subdirectory in foundSubdirectories {
-                if subdirectory.starts(with: ".") {
-                    continue
-                }
-
+            for subdirectory in foundSubdirectories where subdirectory.contains(".") == false {
                 // Construct the URL path for each of the labels (items of the repository)
                 let currentLabelPath = self.directoryPath.appending("/" + subdirectory + "/")
 
-                for item in try fileManager.contentsOfDirectory(atPath: currentLabelPath) {
-                    // Prevent from non-video formats
-                    if !item.contains(".mp4") {
-                        throw DatasetError.unsupportedFormat
+                try fileManager.contentsOfDirectory(atPath: currentLabelPath)
+                    .filter({ $0.starts(with: ".") == false })
+                    .forEach { item in
+                        // Prevent from non-video formats
+                        guard item.contains(".mp4") else{
+                            throw DatasetError.unsupportedFormat
+                        }
+
+                        // Load and process the annotations for each of the videos
+                        let currentItemAnalysisManager = VisionAnalysisManager(videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
+                                                                               fps: self.fps)
+                        currentItemAnalysisManager.annotate()
+
+                        analysesManagers.append(currentItemAnalysisManager)
                     }
-
-                    // Load and process the annotations for each of the videos
-                    let currentItemAnalysisManager = VisionAnalysisManager(videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
-                                                                           fps: self.fps)
-                    currentItemAnalysisManager.annotate()
-
-                    analysesManagers.append(currentItemAnalysisManager)
-                }
 
                 labels.append(subdirectory)
             }

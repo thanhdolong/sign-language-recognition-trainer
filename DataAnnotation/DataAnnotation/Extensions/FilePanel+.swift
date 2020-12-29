@@ -15,7 +15,23 @@ extension NSOpenPanel {
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
         panel.allowedFileTypes = Constant.allowedFileTypes
-        panel.canChooseFiles = true
+        panel.begin { (result) in
+            guard result == .OK, let url = panel.urls.first else {
+                return completion(.failure(
+                    NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to get file location"])
+                ))
+            }
+
+            completion(.success(url))
+        }
+    }
+
+    static func openFolder(completion: @escaping (_ result: Result<URL, Error>) -> Void) {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowedFileTypes = Constant.allowedFileTypes
         panel.begin { (result) in
             guard result == .OK, let url = panel.urls.first else {
                 return completion(.failure(

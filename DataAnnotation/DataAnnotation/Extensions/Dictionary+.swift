@@ -1,5 +1,5 @@
 //
-//  Dictionary+.swift
+//  Array+.swift
 //  SLR data annotation
 //
 //  Created by Thành Đỗ Long on 13.12.2020.

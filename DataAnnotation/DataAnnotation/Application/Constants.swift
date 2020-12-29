@@ -7,5 +7,5 @@
 
 
 struct Constant {
-    static let allowedFileTypes = ["mp4"]
+    static let allowedFileTypes = ["mp4", "mov"]
 }

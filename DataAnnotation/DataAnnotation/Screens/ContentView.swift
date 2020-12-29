@@ -12,18 +12,18 @@ struct ContentView: View {
         NavigationView {
             content
                 .frame(minWidth: 200, idealWidth: 250, maxWidth: 300)
-            SimpleView(viewModel: .init())
+            AnotateVideoView(viewModel: .init())
         }
         .frame(minWidth: 1000, minHeight: 600)
     }
 
     var content: some View {
         List {
-            NavigationLink(destination: SimpleView(viewModel: .init())) {
-                Label("One by one", systemImage: "book.closed")
+            NavigationLink(destination: AnotateVideoView(viewModel: .init())) {
+                Label("Anotate video", systemImage: "book.closed")
             }
-            NavigationLink(destination: EmptyView()) {
-                Label("Entire dataset", systemImage: "list.bullet.rectangle")
+            NavigationLink(destination: AnotateDatasetView(viewModel: .init())) {
+                Label("Anotate dataset", systemImage: "list.bullet.rectangle")
             }
         }
         .listStyle(SidebarListStyle())

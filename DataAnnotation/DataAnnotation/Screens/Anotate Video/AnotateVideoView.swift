@@ -1,5 +1,5 @@
 //
-//  SimpleView.swift
+//  AnotateVideoView.swift
 //  SLR data annotation
 //
 //  Created by Thành Đỗ Long on 15.12.2020.
@@ -8,11 +8,14 @@
 import SwiftUI
 import AVKit
 
-struct SimpleView: View {
+struct AnotateVideoView: View {
     @ObservedObject private(set) var viewModel: ViewModel
 
     var body: some View {
         VStack {
+
+            Spacer()
+
             ZStack {
                 if let url = viewModel.selectedVideoUrl {
                     VideoPlayer(player: AVPlayer(url: url))
@@ -20,11 +23,16 @@ struct SimpleView: View {
                     Text("Drag and drop video file")
                 }
             }
-            .frame(width: 320, height: 320, alignment: .center)
+            .frame(width: 480, height: 480, alignment: .center)
             .background(Color.black.opacity(0.5))
             .cornerRadius(8)
+            .onTapGesture { viewModel.selectFile() }
+            .onDrop(of: ["public.file-url"],
+                    isTargeted: nil,
+                    perform: viewModel.handleOnDrop(providers:))
 
-            .onDrop(of: ["public.file-url"], isTargeted: nil, perform: handleOnDrop(providers:))
+            Text(viewModel.nameVideoUrl ?? "")
+
             Spacer()
 
             HStack(alignment: .bottom, spacing: 32.0) {
@@ -32,34 +40,20 @@ struct SimpleView: View {
                     Text("Load Video")
                 }
 
-                if viewModel.selectedVideoUrl != nil {
+                if viewModel.isStartProcessingActive {
                     Button(action: viewModel.startAnnotate) {
-                        Text("Start processing")
+                        Text("Start Processing")
                     }
                 }
             }
             .padding()
         }
     }
-
-    private func handleOnDrop(providers: [NSItemProvider]) -> Bool {
-        guard let item = providers.first else { return false }
-        item.loadItem(forTypeIdentifier: "public.file-url", options: nil) { (urlData, error) in
-            DispatchQueue.main.async {
-                guard let urlData = urlData as? Data else { return }
-                let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-
-                guard Constant.allowedFileTypes.contains(url.pathExtension) else { return }
-                self.viewModel.selectedVideoUrl = url
-            }
-        }
-        return true
-    }
 }
 
 struct SimpleView_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleView(viewModel: SimpleView.ViewModel())
+        AnotateVideoView(viewModel: AnotateVideoView.ViewModel())
             .previewLayout(.device)
     }
 }
