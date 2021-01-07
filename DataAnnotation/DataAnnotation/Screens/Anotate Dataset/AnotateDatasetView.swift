@@ -12,7 +12,6 @@ struct AnotateDatasetView: View {
 
     var body: some View {
         VStack {
-
             Spacer()
 
             HStack {
@@ -24,8 +23,11 @@ struct AnotateDatasetView: View {
                 }
             }
             .frame(width: 320, height: 320, alignment: .center)
-            .background(Color.black.opacity(0.5))
+            .background(Color.black.opacity(0.8))
             .cornerRadius(8)
+            .background(EmptyView())
+            .shadow(color: .black,
+                    radius: 10)
             .onTapGesture { viewModel.selectFile() }
             .onDrop(of: ["public.file-url"],
                     isTargeted: nil,
