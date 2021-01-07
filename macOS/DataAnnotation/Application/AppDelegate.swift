@@ -13,5 +13,9 @@ struct DataAnnotationApp: App {
         WindowGroup {
             ContentView()
         }
+        
+        Settings {
+            SettingsView()
+        }
     }
 }
