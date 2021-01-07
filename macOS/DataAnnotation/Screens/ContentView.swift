@@ -15,6 +15,7 @@ struct ContentView: View {
             SimpleView(viewModel: .init())
         }
         .frame(minWidth: 1000, minHeight: 600)
+        .navigationTitle("Pose Data Annotator")
     }
 
     var content: some View {
