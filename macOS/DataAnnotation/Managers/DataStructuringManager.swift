@@ -20,6 +20,8 @@ class DataStructuringManager {
         case structuringData
     }
 
+    lazy var queue = OperationQueue()
+
     ///
     /// Converts the data from the hand landmarks observations to landmark keys, for further data
     /// structuring.

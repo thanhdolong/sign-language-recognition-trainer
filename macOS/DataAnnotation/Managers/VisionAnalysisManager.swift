@@ -27,9 +27,16 @@ class VisionAnalysisManager {
     private(set) var fps: Int
     private(set) var videoSize = CGSize()
 
-    private var keyBodyLandmarks = KeyBodyLandmarks()
-    private var keyHandLandmarks = KeyHandLandmarks()
-    private var keyFaceLandmarks = KeyFaceLandmarks()
+    lazy private var keyBodyLandmarks = KeyBodyLandmarks()
+    lazy private var keyHandLandmarks = KeyHandLandmarks()
+    lazy private var keyFaceLandmarks = KeyFaceLandmarks()
+
+    lazy var queue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "VisionAnalysisManager"
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
 
     // MARK: Methods
 
@@ -54,23 +61,27 @@ class VisionAnalysisManager {
     ///
     public func annotate() {
         // Generate the individual frames from the vido
-        videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps, completion: { [unowned self] frames in
-            self.frames = frames
-            self.framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
+        frames = videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
 
-            // Calculate the size of the video
-            self.videoSize = self.videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
+        framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
 
-            for frame in frames {
-                // Create a VNImageRequestHandler for each of the desired frames
-                let handler = VNImageRequestHandler(cgImage: frame, options: [:])
+        // Calculate the size of the video
+        videoSize = videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
 
-                // Process the Vision data for all of the
+        for frame in frames {
+            // Create a VNImageRequestHandler for each of the desired frames
+            let handler = VNImageRequestHandler(cgImage: frame, options: [:])
+
+            // Process the Vision data for all of the
+
+            queue.addOperation {
                 self.invokeBodyPoseDetection(handler: handler)
                 self.invokeHandPoseDetection(handler: handler)
                 self.invokeFaceLandmarksDetection(handler: handler)
             }
-        })
+        }
+
+        queue.waitUntilAllOperationsAreFinished()
     }
 
     ///
@@ -99,7 +110,7 @@ class VisionAnalysisManager {
     public func isAnnotated() -> Bool {
         for frameStatus in self.framesAnnotated {
             for result in frameStatus where result.value == false {
-                    return false
+                return false
             }
         }
 
@@ -116,8 +127,7 @@ class VisionAnalysisManager {
     ///   - handler: VNImageRequestHandler to be used to analyse the body pose
     ///
     func invokeBodyPoseDetection(handler: VNImageRequestHandler) {
-        // Run the ML processes on the background thread to prevent lag
-        DispatchQueue.global(qos: .background).sync {
+        DispatchQueue.global(qos: .userInitiated).sync {
             do {
                 // Setup the request
                 let bodyDetectionRequest = VNDetectHumanBodyPoseRequest(completionHandler: retrieveBodyPoseDetectionResults)
@@ -180,8 +190,7 @@ class VisionAnalysisManager {
     ///   - handler: VNImageRequestHandler to be used to analyse the hand pose
     ///
     func invokeHandPoseDetection(handler: VNImageRequestHandler) {
-        // Run the ML processes on the background thread to prevent lag
-        DispatchQueue.global(qos: .background).sync {
+        DispatchQueue.global(qos: .userInitiated).sync {
             do {
                 // Setup the request
                 let handDetectionRequest = VNDetectHumanHandPoseRequest(completionHandler: retrieveHandPoseDetectionResults)
@@ -244,8 +253,7 @@ class VisionAnalysisManager {
     ///   - handler: VNImageRequestHandler to be used to analyse the face landmarks
     ///
     func invokeFaceLandmarksDetection(handler: VNImageRequestHandler) {
-        // Run the ML processes on the background thread to prevent lag
-        DispatchQueue.global(qos: .background).sync {
+        DispatchQueue.global(qos: .userInitiated).sync {
             do {
                 // Setup the request
                 let faceLandmarksDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: retrieveFaceLandmarksDetectionResults)
