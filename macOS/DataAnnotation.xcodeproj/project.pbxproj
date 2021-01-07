@@ -104,7 +104,7 @@
 		6F9FA2582589627700672FDA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6F9FA2572589627700672FDA /* DataAnnotation.app */,
+				6F9FA2572589627700672FDA /* Pose Data Annotator.app */,
 				6F9FA2692589627800672FDA /* DataAnnotationTests.xctest */,
 			);
 			name = Products;
@@ -239,7 +239,7 @@
 			);
 			name = DataAnnotation;
 			productName = DataAnnotation;
-			productReference = 6F9FA2572589627700672FDA /* DataAnnotation.app */;
+			productReference = 6F9FA2572589627700672FDA /* Pose Data Annotator.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6F9FA2682589627800672FDA /* DataAnnotationTests */ = {
@@ -321,6 +321,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F58BB54425A712D1000EB17B /* SettingsView.swift in Sources */,
+				F58BB55325A71896000EB17B /* AnalysisSettingsView.swift in Sources */,
 				6F9FA292258962A900672FDA /* VisionAnalysisManager.swift in Sources */,
 				6FF2A447259530AB00AD5C44 /* AnotateDatasetViewModel.swift in Sources */,
 				6F9FA29C258962C400672FDA /* VNRecognizedPointsObservation+.swift in Sources */,
@@ -486,7 +488,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DataAnnotation/Resources\"";
-				DEVELOPMENT_TEAM = KW278547Y4;
+				DEVELOPMENT_TEAM = RNLQ7CT33Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = DataAnnotation/Resources/Info.plist;
@@ -496,7 +498,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thanhdolong.DataAnnotation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Pose Data Annotator";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -510,7 +512,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DataAnnotation/Resources\"";
-				DEVELOPMENT_TEAM = KW278547Y4;
+				DEVELOPMENT_TEAM = RNLQ7CT33Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = DataAnnotation/Resources/Info.plist;
@@ -520,7 +522,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thanhdolong.DataAnnotation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Pose Data Annotator";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
