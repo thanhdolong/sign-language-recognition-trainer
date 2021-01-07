@@ -49,7 +49,7 @@ class VisionAnalysisManager {
     ///   - fps: Frames per second to be annotated
     ///
     init(videoUrl: URL,
-         fps: Int = 4,
+         fps: Int = UserDefaults.standard.integer(forKey: "fps"),
          videoProcessingManager: VideoProcessingManager = .init()) {
         self.videoUrl = videoUrl
         self.fps = fps
