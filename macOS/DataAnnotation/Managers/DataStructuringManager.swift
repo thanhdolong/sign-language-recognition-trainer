@@ -184,8 +184,12 @@ class DataStructuringManager {
 
         for (key, value) in stackedData where value.isEmpty == false {
             convertedToMLData[key] = value
+            print("\(key) + \(value.count)")
         }
 
+        print(videoMetadata["width"]?.count)
+        print(videoMetadata["height"]?.count)
+        print(videoMetadata["fps"]?.count)
         convertedToMLData["video_size_width"] = videoMetadata["width"]
         convertedToMLData["video_size_height"] = videoMetadata["height"]
         convertedToMLData["video_fps"] = videoMetadata["fps"]
