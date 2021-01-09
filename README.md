@@ -25,8 +25,6 @@ The latest (as well as all the previous stable builds) can be downloaded as a `.
 
 - macOS 11.0+ (Big Sur and above)
 
-### Steps
-
 ### Build from source
 
 You can build Latest directly on your machine. To do that, you have to download the source code by cloning the repository: `git clone https://github.com/thanhdolong/sign-language-recognition-trainer.git`.
@@ -38,8 +36,6 @@ Then you can open the BodyPoseAnnotator.xcodeproj and hit **Build and Run**. Mak
 - macOS 11.0+ (Big Sur and above)
 - Xcode 12.0+
 - Swift 5
-
-### Steps
 
 ## Usage
 
