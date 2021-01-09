@@ -7,15 +7,19 @@ The **Body Pose Annotator** app is a handy desktop app for seamless Vision analy
 
 ### Backbone
 
-
+The backbone of the body, hand, and face pose analysis is built on top of the [Vision](https://developer.apple.com/documentation/vision) framework by Apple. We have found it to be working significantly better and more efficiently than the other publicly available frameworks.
 
 ### Data format
 
+The data is saved in a custom data format into a `.csv` file. More information regarding the formatting system can be found [here](data_format.md). The app also supports the following data annotations formats:
 
+- ...
 
 ## Installation
 
 ### Download the app
+
+The latest (as well as all the previous stable builds) can be downloaded as a `.dmg` here.
 
 #### Requirements
 
@@ -24,6 +28,10 @@ The **Body Pose Annotator** app is a handy desktop app for seamless Vision analy
 ### Steps
 
 ### Build from source
+
+You can build Latest directly on your machine. To do that, you have to download the source code by cloning the repository: `git clone https://github.com/thanhdolong/sign-language-recognition-trainer.git`.
+
+Then you can open the BodyPoseAnnotator.xcodeproj and hit **Build and Run**. Make sure that the BodyPoseAnnotator scheme is selected.
 
 #### Requirements
 
