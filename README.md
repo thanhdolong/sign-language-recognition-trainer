@@ -15,12 +15,26 @@ The **Body Pose Annotator** app is a handy desktop app for seamless Vision analy
 
 ## Installation
 
-### Requirements
+### Download the app
+
+#### Requirements
 
 - macOS 11.0+ (Big Sur and above)
 
-## Usage
+### Steps
 
+### Build from source
+
+#### Requirements
+
+- macOS 11.0+ (Big Sur and above)
+- Xcode 12.0+
+- Swift 5
+
+### Steps
+
+## Usage
 
 ## Contribution
 
+Any contribution is highly encouraged and welcome! You can take a look at the [Issues]() section to see what you can do. If you spot a bug, please file a Bug Report, or if you have some idea of your own, please submit a Feature Request. Use the according templates for both please and provide as much information or context as possible.
