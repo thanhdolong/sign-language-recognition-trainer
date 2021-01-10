@@ -149,7 +149,14 @@ class VisionAnalysisManager {
     ///
     func retrieveBodyPoseDetectionResults(request: VNRequest, error: Error?) {
         guard let observations =
-                request.results?.first as? VNHumanBodyPoseObservation else { return }
+                request.results?.first as? VNHumanBodyPoseObservation else {
+            // Prevent from crashing once face is visible only for certain parts of the record
+            // TODO: Consider other filling options than just zeros
+            self.keyBodyLandmarks.append([[VNHumanBodyPoseObservation.JointName: VNPoint]]())
+            self.framesAnnotated[self.keyBodyLandmarks.count - 1]["body"] = true
+            
+            return
+        }
 
         // Process each observation to find the recognized body landmarks
         var result = [[VNHumanBodyPoseObservation.JointName: VNPoint]]()
@@ -212,7 +219,14 @@ class VisionAnalysisManager {
     ///   - error: Possible error occuring during the analysis
     ///
     func retrieveHandPoseDetectionResults(request: VNRequest, error: Error?) {
-        guard let observations = request.results?.first as? VNHumanHandPoseObservation else { return }
+        guard let observations = request.results?.first as? VNHumanHandPoseObservation else {
+            // Prevent from crashing once hands are visible only for certain parts of the record
+            // TODO: Consider other filling options than just zeros
+            self.keyHandLandmarks.append([[VNHumanHandPoseObservation.JointName: VNPoint]]())
+            self.framesAnnotated[self.keyHandLandmarks.count - 1]["hands"] = true
+            
+            return
+        }
 
         // Process each observation to find the recognized hand landmarks
         var result = [[VNHumanHandPoseObservation.JointName: VNPoint]]()
@@ -273,7 +287,14 @@ class VisionAnalysisManager {
     ///   - error: Possible error occuring during the analysis
     ///
     func retrieveFaceLandmarksDetectionResults(request: VNRequest, error: Error?) {
-        guard let observations = request.results?.first as? VNFaceObservation else { return }
+        guard let observations = request.results?.first as? VNFaceObservation else {
+            // Prevent from crashing once face is visible only for certain parts of the record
+            // TODO: Consider other filling options than just zeros
+            self.keyFaceLandmarks.append([[CGPoint]]())
+            self.framesAnnotated[self.keyFaceLandmarks.count - 1]["face"] = true
+            
+            return
+        }
 
         // Process each observation to find the recognized face landmarks
         var result = [[CGPoint]]()
