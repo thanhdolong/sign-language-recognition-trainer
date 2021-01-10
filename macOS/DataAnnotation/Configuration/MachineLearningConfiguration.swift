@@ -12,10 +12,10 @@ struct MachineLearningConfiguration {
     ///
     /// Threshold for the hand pose detection using the Vision framework.
     ///
-    static let handPoseDetectionThreshold: Float = 0.1
+    static var handPoseDetectionThreshold: Float = UserDefaults.standard.float(forKey: "handPoseDetectionThreshold")
 
     ///
     /// Threshold for the body pose detection using the Vision framework.
     ///
-    static let bodyPoseDetectionThreshold: Float = 0.01
+    static let bodyPoseDetectionThreshold: Float = UserDefaults.standard.float(forKey: "bodyPoseDetectionThreshold")
 }

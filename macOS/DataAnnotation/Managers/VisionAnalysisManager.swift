@@ -49,7 +49,7 @@ class VisionAnalysisManager {
     ///   - fps: Frames per second to be annotated
     ///
     init(videoUrl: URL,
-         fps: Int = 4,
+         fps: Int = UserDefaults.standard.integer(forKey: "fps"),
          videoProcessingManager: VideoProcessingManager = .init()) {
         self.videoUrl = videoUrl
         self.fps = fps
@@ -149,7 +149,14 @@ class VisionAnalysisManager {
     ///
     func retrieveBodyPoseDetectionResults(request: VNRequest, error: Error?) {
         guard let observations =
-                request.results?.first as? VNHumanBodyPoseObservation else { return }
+                request.results?.first as? VNHumanBodyPoseObservation else {
+            // Prevent from crashing once face is visible only for certain parts of the record
+            // TODO: Consider other filling options than just zeros
+            self.keyBodyLandmarks.append([[VNHumanBodyPoseObservation.JointName: VNPoint]]())
+            self.framesAnnotated[self.keyBodyLandmarks.count - 1]["body"] = true
+            
+            return
+        }
 
         // Process each observation to find the recognized body landmarks
         var result = [[VNHumanBodyPoseObservation.JointName: VNPoint]]()
@@ -166,16 +173,24 @@ class VisionAnalysisManager {
         }
 
         var keyBodyLandmarks = [VNHumanBodyPoseObservation.JointName: VNPoint]()
+        let requestedBodyLandmarks = ObservationConfiguration.requestedBodyLandmarks
 
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.bodyPoseDetectionThreshold {
             // Keep the point for further analysis if relevant
-            let requestedBodyLandmarks = ObservationConfiguration.requestedBodyLandmarks
-
             if (requestedBodyLandmarks.contains(key)) || requestedBodyLandmarks.isEmpty {
                 keyBodyLandmarks[key] = point
             }
         }
+        
+        // Ensure that all landmark keys are present, otherwise fill in a zero
+        // TODO: Consider other filling options than just zeros
+        for key in requestedBodyLandmarks {
+            for key in requestedBodyLandmarks where keyBodyLandmarks[key] == nil 
+                keyBodyLandmarks[key] = VNPoint()
+            }
+        }
+        
 
         return keyBodyLandmarks
     }
@@ -212,7 +227,14 @@ class VisionAnalysisManager {
     ///   - error: Possible error occuring during the analysis
     ///
     func retrieveHandPoseDetectionResults(request: VNRequest, error: Error?) {
-        guard let observations = request.results?.first as? VNHumanHandPoseObservation else { return }
+        guard let observations = request.results?.first as? VNHumanHandPoseObservation else {
+            // Prevent from crashing once hands are visible only for certain parts of the record
+            // TODO: Consider other filling options than just zeros
+            self.keyHandLandmarks.append([[VNHumanHandPoseObservation.JointName: VNPoint]]())
+            self.framesAnnotated[self.keyHandLandmarks.count - 1]["hands"] = true
+            
+            return
+        }
 
         // Process each observation to find the recognized hand landmarks
         var result = [[VNHumanHandPoseObservation.JointName: VNPoint]]()
@@ -229,12 +251,11 @@ class VisionAnalysisManager {
         }
 
         var keyHandLandmarks = [VNHumanHandPoseObservation.JointName: VNPoint]()
+        let requestedHandLandmarks = ObservationConfiguration.requestedHandLandmarks
 
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.handPoseDetectionThreshold {
             // Keep the point for further analysis if relevant
-            let requestedHandLandmarks = ObservationConfiguration.requestedHandLandmarks
-
             if (requestedHandLandmarks.contains(key)) || requestedHandLandmarks.isEmpty {
                 keyHandLandmarks[key] = point
             }
@@ -273,7 +294,14 @@ class VisionAnalysisManager {
     ///   - error: Possible error occuring during the analysis
     ///
     func retrieveFaceLandmarksDetectionResults(request: VNRequest, error: Error?) {
-        guard let observations = request.results?.first as? VNFaceObservation else { return }
+        guard let observations = request.results?.first as? VNFaceObservation else {
+            // Prevent from crashing once face is visible only for certain parts of the record
+            // TODO: Consider other filling options than just zeros
+            self.keyFaceLandmarks.append([[CGPoint]]())
+            self.framesAnnotated[self.keyFaceLandmarks.count - 1]["face"] = true
+            
+            return
+        }
 
         // Process each observation to find the recognized face landmarks
         var result = [[CGPoint]]()

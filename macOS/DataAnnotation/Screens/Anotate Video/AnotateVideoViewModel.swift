@@ -40,7 +40,7 @@ extension AnotateVideoView {
 
             do {
                 self.analysisManager = VisionAnalysisManager(videoUrl: selectedVideoUrl,
-                                                             fps: 3)
+                                                             fps: UserDefaults.standard.integer(forKey: "fps"))
 
                 // Annotate for the necessary elements
                 self.analysisManager?.annotate()

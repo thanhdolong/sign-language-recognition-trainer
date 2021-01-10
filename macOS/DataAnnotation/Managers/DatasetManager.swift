@@ -83,9 +83,8 @@ class DatasetManager {
                         currentItemAnalysisManager.annotate()
 
                         analysesManagers.append(currentItemAnalysisManager)
+                        labels.append(subdirectory)
                     }
-
-                labels.append(subdirectory)
             }
         } catch {
             throw error
