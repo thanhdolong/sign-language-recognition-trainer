@@ -173,16 +173,24 @@ class VisionAnalysisManager {
         }
 
         var keyBodyLandmarks = [VNHumanBodyPoseObservation.JointName: VNPoint]()
+        let requestedBodyLandmarks = ObservationConfiguration.requestedBodyLandmarks
 
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.bodyPoseDetectionThreshold {
             // Keep the point for further analysis if relevant
-            let requestedBodyLandmarks = ObservationConfiguration.requestedBodyLandmarks
-
             if (requestedBodyLandmarks.contains(key)) || requestedBodyLandmarks.isEmpty {
                 keyBodyLandmarks[key] = point
             }
         }
+        
+        // Ensure that all landmark keys are present, otherwise fill in a zero
+        // TODO: Consider other filling options than just zeros
+        for key in requestedBodyLandmarks {
+            if keyBodyLandmarks[key] == nil {
+                keyBodyLandmarks[key] = VNPoint()
+            }
+        }
+        
 
         return keyBodyLandmarks
     }
@@ -243,12 +251,11 @@ class VisionAnalysisManager {
         }
 
         var keyHandLandmarks = [VNHumanHandPoseObservation.JointName: VNPoint]()
+        let requestedHandLandmarks = ObservationConfiguration.requestedHandLandmarks
 
         // Process all of the recognized landmarks
         for (key, point) in recognizedPoints where point.confidence > MachineLearningConfiguration.handPoseDetectionThreshold {
             // Keep the point for further analysis if relevant
-            let requestedHandLandmarks = ObservationConfiguration.requestedHandLandmarks
-
             if (requestedHandLandmarks.contains(key)) || requestedHandLandmarks.isEmpty {
                 keyHandLandmarks[key] = point
             }
