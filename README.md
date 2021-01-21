@@ -2,8 +2,8 @@
 
 The **Body Pose Annotator** app is a handy desktop app for seamless Vision analysis of body, hand and face landmarks for applied tasks such as sign language recognition, action classification, and more. The app makes it easy to annotate both single videos and large datasets, and output the data in a standardized CSV file for any further work.
 
-![App screenshot 1: Annotate video](http://data.matsworld.io/body-pose-annotator/screenshot1.png)
-![App screenshot 2: Annotate dataset](http://data.matsworld.io/body-pose-annotator/screenshot2.png)
+![App screenshot 1: Annotate video](http://data.matsworld.io/body-pose-annotator/screenshot_1.png)
+![App screenshot 2: Annotate dataset](http://data.matsworld.io/body-pose-annotator/screenshot_2.png)
 
 ### Backbone
 
