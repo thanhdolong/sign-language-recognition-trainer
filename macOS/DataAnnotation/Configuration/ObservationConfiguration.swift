@@ -27,7 +27,7 @@ struct ObservationConfiguration {
     /// - Warning: If empty, all body landmarks are requested
     ///
     static let requestedBodyLandmarks: [VNHumanBodyPoseObservation.JointName] = [
-        .nose,
+        .nose, .root, .neck,
         .rightEye, .leftEye,
         .rightEar, .leftEar,
         .rightShoulder, .leftShoulder,
@@ -40,5 +40,17 @@ struct ObservationConfiguration {
     ///
     /// - Warning: If empty, all hand landmarks are requested
     ///
-    static let requestedHandLandmarks: [VNHumanHandPoseObservation.JointName] = []
+    static let requestedHandLandmarks: [VNHumanHandPoseObservation.JointName] = [
+        .wrist, .thumbCMC,
+        .thumbMP, .thumbIP,
+        .thumbTip, .indexMCP,
+        .indexPIP, .indexDIP,
+        .indexTip, .middleMCP,
+        .middlePIP, .middleDIP,
+        .middleTip, .ringMCP,
+        .ringPIP, .ringDIP,
+        .ringTip, .littleMCP,
+        .littlePIP, .littleDIP,
+        .littleTip
+    ]
 }
