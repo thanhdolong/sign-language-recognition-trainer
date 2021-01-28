@@ -75,19 +75,17 @@ class DataStructuringManager {
         // Prepare the dictionary for all of the possible landmarks keys to be added
         var converted = [String: [Double]]()
 
-        for (observationIndex, observation) in recognizedLandmarks.enumerated() {
+        for (_, observation) in recognizedLandmarks.enumerated() {
             if !observation.isEmpty {
                 // Structure the data with the new keys
                 for (landmarkKey, value) in observation[0] {
                     converted.add(Double(value.location.x), toArrayOn: "\(landmarkKey.stringValue())_X")
                     converted.add(Double(value.location.y), toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
-            }
-
-            // Fill in the values for all potential landmarks that were not captured
-            converted.forEach { key, _ in
-                if converted[key]?.count != observationIndex + 1 {
-                    converted[key]?.append(0.0)
+            } else {
+                for landmarkKey in ObservationConfiguration.requestedBodyLandmarks {
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_X")
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
             }
         }
@@ -182,7 +180,7 @@ class DataStructuringManager {
             videoMetadata["fps"]?.append(Double(analysis.fps))
         }
 
-        for (key, value) in stackedData where value.isEmpty == false {
+        for (key, value) in stackedData {
             convertedToMLData[key] = value
             print("\(key) + \(value.count)")
         }

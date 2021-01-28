@@ -185,13 +185,10 @@ class VisionAnalysisManager {
         
         // Ensure that all landmark keys are present, otherwise fill in a zero
         // TODO: Consider other filling options than just zeros
-        for key in requestedBodyLandmarks {
-            for key in requestedBodyLandmarks where keyBodyLandmarks[key] == nil {
-                keyBodyLandmarks[key] = VNPoint()
-            }
+        for key in requestedBodyLandmarks where keyBodyLandmarks[key] == nil {
+            keyBodyLandmarks[key] = VNPoint()
         }
         
-
         return keyBodyLandmarks
     }
 
@@ -259,6 +256,12 @@ class VisionAnalysisManager {
             if (requestedHandLandmarks.contains(key)) || requestedHandLandmarks.isEmpty {
                 keyHandLandmarks[key] = point
             }
+        }
+        
+        // Ensure that all landmark keys are present, otherwise fill in a zero
+        // TODO: Consider other filling options than just zeros
+        for key in requestedHandLandmarks where keyHandLandmarks[key] == nil {
+            keyHandLandmarks[key] = VNPoint()
         }
 
         return keyHandLandmarks
