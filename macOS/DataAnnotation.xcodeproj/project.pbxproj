@@ -33,6 +33,7 @@
 		F5C4C4AD25A88D94009E31DD /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4A925A88D94009E31DD /* GeneralSettingsView.swift */; };
 		F5C4C4AE25A88D94009E31DD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4AA25A88D94009E31DD /* SettingsView.swift */; };
 		F5C4C4AF25A88D94009E31DD /* VideoSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4AB25A88D94009E31DD /* VideoSettingsView.swift */; };
+		F5EF5C4B25C2F04D00964DE0 /* Icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = F5EF5C4A25C2F04D00964DE0 /* Icons.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		F5C4C4A925A88D94009E31DD /* GeneralSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		F5C4C4AA25A88D94009E31DD /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F5C4C4AB25A88D94009E31DD /* VideoSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSettingsView.swift; sourceTree = "<group>"; };
+		F5EF5C4A25C2F04D00964DE0 /* Icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icons.icns; path = Assets.xcassets/Icons.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 		6F9FA2AD2589630000672FDA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F5EF5C4A25C2F04D00964DE0 /* Icons.icns */,
 				6F9FA25E2589627800672FDA /* Assets.xcassets */,
 				6F9FA2612589627800672FDA /* Preview Assets.xcassets */,
 				6F9FA2632589627800672FDA /* Info.plist */,
@@ -323,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F9FA2622589627800672FDA /* Preview Assets.xcassets in Resources */,
+				F5EF5C4B25C2F04D00964DE0 /* Icons.icns in Resources */,
 				6F9FA25F2589627800672FDA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,8 +345,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F58BB54425A712D1000EB17B /* SettingsView.swift in Sources */,
-				F58BB55325A71896000EB17B /* AnalysisSettingsView.swift in Sources */,
 				6F9FA292258962A900672FDA /* VisionAnalysisManager.swift in Sources */,
 				6FF2A447259530AB00AD5C44 /* AnotateDatasetViewModel.swift in Sources */,
 				6F9FA29C258962C400672FDA /* VNRecognizedPointsObservation+.swift in Sources */,
@@ -506,11 +508,11 @@
 		6F9FA27E2589627900672FDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DataAnnotation/Resources/DataAnnotation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"DataAnnotation/Resources\"";
 				DEVELOPMENT_TEAM = RNLQ7CT33Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -521,7 +523,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thanhdolong.DataAnnotation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.signlanguagerecognition.DataAnnotation;
 				PRODUCT_NAME = "Pose Data Annotator";
 				SWIFT_VERSION = 5.0;
 			};
@@ -530,11 +532,11 @@
 		6F9FA27F2589627900672FDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DataAnnotation/Resources/DataAnnotation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"DataAnnotation/Resources\"";
 				DEVELOPMENT_TEAM = RNLQ7CT33Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -545,7 +547,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thanhdolong.DataAnnotation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.signlanguagerecognition.DataAnnotation;
 				PRODUCT_NAME = "Pose Data Annotator";
 				SWIFT_VERSION = 5.0;
 			};
