@@ -13,7 +13,8 @@ extension AnotateVideoView {
         private let dataStructuringManager: DataStructuringManager
         private let observationConfiguration: ObservationConfiguration
         private var analysisManager: VisionAnalysisManager!
-
+        private let operationsQueue = OperationQueue()
+        
         @Published var selectedVideoUrl: URL?
         @Published var nameVideoUrl: String?
 
@@ -38,20 +39,21 @@ extension AnotateVideoView {
             guard let selectedVideoUrl = selectedVideoUrl,
                   let nameVideoUrl = nameVideoUrl else { fatalError("URL cannot be empty")}
 
-            do {
                 self.analysisManager = VisionAnalysisManager(videoUrl: selectedVideoUrl,
                                                              fps: UserDefaults.standard.integer(forKey: "fps"))
 
-                // Annotate for the necessary elements
-                self.analysisManager?.annotate()
-
-                let data = try self.dataStructuringManager.combineData(labels: [nameVideoUrl],
-                                                                       visionAnalyses: [self.analysisManager])
-
-                saveCVS(data: data)
-            } catch {
-                print(error)
-            }
+                let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: self.analysisManager) {
+                    do {
+                        let data = try self.dataStructuringManager.combineData(labels: [nameVideoUrl],
+                                                                               visionAnalyses: [self.analysisManager])
+                        
+                        self.saveCVS(data: data)
+                    } catch {
+                        print(error)
+                    }
+                }
+            
+            operationsQueue.addOperations([videoAnalysisOp], waitUntilFinished: false)
         }
 
         func saveCVS(data: MLDataTable) {

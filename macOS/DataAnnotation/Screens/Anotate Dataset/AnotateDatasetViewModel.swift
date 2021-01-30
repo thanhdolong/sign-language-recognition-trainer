@@ -43,13 +43,15 @@ extension AnotateDatasetView {
             guard let selectedFolderUrl = selectedFolderUrl else { fatalError("URL cannot be empty")}
             let datasetManager = DatasetManager(directoryPath: selectedFolderUrl.path, fps: 3)
 
-            do {
-                // Structure the data into a MLDataTable
-                let data = try datasetManager.generateMLTable()
-
-                saveCVS(data: data)
-            } catch {
-                print(error)
+            datasetManager.generateMLTable { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let data):
+                    self.saveCVS(data: data)
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
 
