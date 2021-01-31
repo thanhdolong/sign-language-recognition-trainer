@@ -51,16 +51,28 @@ class DatasetManager {
     /// - Throws: Corresponding `DatasetError` or `OutputProcessingError`, based on any
     ///     errors occurring during the data processing or the annotations
     ///
-    func generateMLTable() throws -> MLDataTable {
+    func generateMLTable(_ completion: @escaping(Result<MLDataTable, Error>) -> ()) {
         var foundSubdirectories = [String]()
         var labels = [String]()
         var analysesManagers = [VisionAnalysisManager]()
-
+        let queue = OperationQueue()
+        var operations: [Operation] = []
         do {
             // Load all of the labels present in the dataset
             foundSubdirectories = try fileManager.contentsOfDirectory(atPath: self.directoryPath)
         } catch {
-            throw DatasetError.invalidDirectoryContents
+            completion(.failure(DatasetError.invalidDirectoryContents))
+        }
+        
+        let videoAnalysisFinishedOp = BlockOperation {
+            do {
+                // Structure the data into a MLDataTable
+                let outputDataStructuringManager = DataStructuringManager()
+                let output = try outputDataStructuringManager.combineData(labels: labels, visionAnalyses: analysesManagers)
+                completion(.success(output))
+            } catch {
+                completion(.failure(error))
+            }
         }
 
         // Create annotations managers for each of the labels
@@ -80,23 +92,20 @@ class DatasetManager {
                         // Load and process the annotations for each of the videos
                         let currentItemAnalysisManager = VisionAnalysisManager(videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
                                                                                fps: self.fps)
-                        currentItemAnalysisManager.annotate()
-
+                        
+                        let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: currentItemAnalysisManager)
+                        operations.append(videoAnalysisOp)
+                        videoAnalysisFinishedOp.addDependency(videoAnalysisOp)
+                        
                         analysesManagers.append(currentItemAnalysisManager)
                         labels.append(subdirectory)
                     }
             }
         } catch {
-            throw error
+            completion(.failure(error))
         }
-
-        do {
-            // Structure the data into a MLDataTable
-            let outputDataStructuringManager = DataStructuringManager()
-            return try outputDataStructuringManager.combineData(labels: labels, visionAnalyses: analysesManagers)
-        } catch {
-            throw error
-        }
+        
+        operations.append(videoAnalysisFinishedOp)
+        queue.addOperations(operations, waitUntilFinished: false)
     }
-
 }
