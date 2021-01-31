@@ -27,48 +27,55 @@ class VideoAnalysisOperation: AsyncOperation {
 }
 
 class VideoAnnotateOperation: AsyncOperation {
-    var keyBodyLandmarks: KeyBodyLandmarks
-    var keyHandLandmarks: KeyHandLandmarks
-    var keyFaceLandmarks: KeyFaceLandmarks
-    var framesAnnotated = [[String: Bool]]()
+    var keyLandmarks: KeyLandmarks
+//    var keyHandLandmarks: KeyHandLandmarks
+//    var keyFaceLandmarks: KeyFaceLandmarks
+//    var framesAnnotated = [[String: Bool]]()
+    let framesAnnotated: FrameAnotated
     let handler: VNImageRequestHandler
-    
     let queue: OperationQueue = .init()
     
-    init(keyBodyLandmarks: KeyBodyLandmarks,
-         keyHandLandmarks: KeyHandLandmarks,
-         keyFaceLandmarks: KeyFaceLandmarks,
-         framesAnnotated: [[String: Bool]],
-         handler: VNImageRequestHandler) {
-        self.keyBodyLandmarks = keyBodyLandmarks
-        self.keyHandLandmarks = keyHandLandmarks
-        self.keyFaceLandmarks = keyFaceLandmarks
+    init(keyLandmarks: KeyLandmarks,
+//         keyHandLandmarks: KeyHandLandmarks,
+//         keyFaceLandmarks: KeyFaceLandmarks,
+//         framesAnnotated: [[String: Bool]],
+         framesAnnotated: FrameAnotated,
+         frame: CGImage) {
+        self.keyLandmarks = keyLandmarks
+//        self.keyHandLandmarks = keyHandLandmarks
+//        self.keyFaceLandmarks = keyFaceLandmarks
         self.framesAnnotated = framesAnnotated
-        self.handler = handler
+        self.handler = VNImageRequestHandler(cgImage: frame, options: [:])
     }
     
     override func main() {
-        let bodyOperation = BlockOperation {
+        DispatchQueue.global(qos: .default).async {
             self.invokeBodyPoseDetection(handler: self.handler)
-        }
-        
-        let handOperation = BlockOperation {
             self.invokeHandPoseDetection(handler: self.handler)
-        }
-        
-        let faceOperation = BlockOperation {
             self.invokeFaceLandmarksDetection(handler: self.handler)
-        }
-        
-        let finishedOperation = BlockOperation {
             self.state = .Finished
         }
-        
-        finishedOperation.addDependency(bodyOperation)
-        finishedOperation.addDependency(handOperation)
-        finishedOperation.addDependency(faceOperation)
-        
-        queue.addOperations([finishedOperation, bodyOperation, handOperation, faceOperation], waitUntilFinished: false)
+//        let bodyOperation = BlockOperation {
+//            self.invokeBodyPoseDetection(handler: self.handler)
+//        }
+//
+//        let handOperation = BlockOperation {
+//            self.invokeHandPoseDetection(handler: self.handler)
+//        }
+//
+//        let faceOperation = BlockOperation {
+//            self.invokeFaceLandmarksDetection(handler: self.handler)
+//        }
+//
+//        let finishedOperation = BlockOperation {
+//            self.state = .Finished
+//        }
+//
+//        finishedOperation.addDependency(bodyOperation)
+//        finishedOperation.addDependency(handOperation)
+//        finishedOperation.addDependency(faceOperation)
+//
+//        queue.addOperations([bodyOperation, handOperation, faceOperation, finishedOperation], waitUntilFinished: false)
         
     }
     
@@ -82,17 +89,17 @@ class VideoAnnotateOperation: AsyncOperation {
     ///   - handler: VNImageRequestHandler to be used to analyse the body pose
     ///
     func invokeBodyPoseDetection(handler: VNImageRequestHandler) {
-        DispatchQueue.global(qos: .userInitiated).sync {
+//        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 // Setup the request
-                let bodyDetectionRequest = VNDetectHumanBodyPoseRequest(completionHandler: retrieveBodyPoseDetectionResults)
+                let bodyDetectionRequest = VNDetectHumanBodyPoseRequest(completionHandler: self.retrieveBodyPoseDetectionResults)
 
                 // Perform the request
                 try handler.perform([bodyDetectionRequest])
             } catch {
                 print("! \(error)")
             }
-        }
+//        }
     }
 
     /// Retrieves results from ML analysis of body pose detection, including the relevant joints and their
@@ -107,8 +114,8 @@ class VideoAnnotateOperation: AsyncOperation {
                 request.results?.first as? VNHumanBodyPoseObservation else {
             // Prevent from crashing once face is visible only for certain parts of the record
             // TODO: Consider other filling options than just zeros
-            self.keyBodyLandmarks.append([[VNHumanBodyPoseObservation.JointName: VNPoint]]())
-            self.framesAnnotated[self.keyBodyLandmarks.count - 1]["body"] = true
+            self.keyLandmarks.body.append([[VNHumanBodyPoseObservation.JointName: VNPoint]]())
+            self.framesAnnotated.value[self.keyLandmarks.body.count - 1]["body"] = true
             
             return
         }
@@ -117,8 +124,8 @@ class VideoAnnotateOperation: AsyncOperation {
         var result = [[VNHumanBodyPoseObservation.JointName: VNPoint]]()
         result.append(processBodyPoseObservation(observations))
 
-        self.keyBodyLandmarks.append(result)
-        self.framesAnnotated[self.keyBodyLandmarks.count - 1]["body"] = true
+        self.keyLandmarks.body.append(result)
+        self.framesAnnotated.value[self.keyLandmarks.body.count - 1]["body"] = true
     }
 
     func processBodyPoseObservation(_ observation: VNHumanBodyPoseObservation) -> [VNHumanBodyPoseObservation.JointName: VNPoint] {
@@ -140,12 +147,9 @@ class VideoAnnotateOperation: AsyncOperation {
         
         // Ensure that all landmark keys are present, otherwise fill in a zero
         // TODO: Consider other filling options than just zeros
-        for key in requestedBodyLandmarks {
-            for key in requestedBodyLandmarks where keyBodyLandmarks[key] == nil {
-                keyBodyLandmarks[key] = VNPoint()
-            }
+        for key in requestedBodyLandmarks where keyBodyLandmarks[key] == nil {
+            keyBodyLandmarks[key] = VNPoint()
         }
-        
 
         return keyBodyLandmarks
     }
@@ -160,10 +164,10 @@ class VideoAnnotateOperation: AsyncOperation {
     ///   - handler: VNImageRequestHandler to be used to analyse the hand pose
     ///
     func invokeHandPoseDetection(handler: VNImageRequestHandler) {
-        DispatchQueue.global(qos: .userInitiated).sync {
+//        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 // Setup the request
-                let handDetectionRequest = VNDetectHumanHandPoseRequest(completionHandler: retrieveHandPoseDetectionResults)
+                let handDetectionRequest = VNDetectHumanHandPoseRequest(completionHandler: self.retrieveHandPoseDetectionResults)
                 handDetectionRequest.maximumHandCount = 2
 
                 // Perform the request
@@ -171,7 +175,7 @@ class VideoAnnotateOperation: AsyncOperation {
             } catch {
                 print("! \(error)")
             }
-        }
+//        }
     }
 
     /// Retrieves results from ML analysis of hand pose detection, including the relevant joints and their
@@ -185,8 +189,8 @@ class VideoAnnotateOperation: AsyncOperation {
         guard let observations = request.results?.first as? VNHumanHandPoseObservation else {
             // Prevent from crashing once hands are visible only for certain parts of the record
             // TODO: Consider other filling options than just zeros
-            self.keyHandLandmarks.append([[VNHumanHandPoseObservation.JointName: VNPoint]]())
-            self.framesAnnotated[self.keyHandLandmarks.count - 1]["hands"] = true
+            self.keyLandmarks.hand.append([[VNHumanHandPoseObservation.JointName: VNPoint]]())
+            self.framesAnnotated.value[self.keyLandmarks.hand.count - 1]["hands"] = true
             
             return
         }
@@ -195,8 +199,8 @@ class VideoAnnotateOperation: AsyncOperation {
         var result = [[VNHumanHandPoseObservation.JointName: VNPoint]]()
         result.append(processHandPoseObservation(observations))
 
-        self.keyHandLandmarks.append(result)
-        self.framesAnnotated[self.keyHandLandmarks.count - 1]["hands"] = true
+        self.keyLandmarks.hand.append(result)
+        self.framesAnnotated.value[self.keyLandmarks.hand.count - 1]["hands"] = true
     }
 
     func processHandPoseObservation(_ observation: VNHumanHandPoseObservation) -> [VNHumanHandPoseObservation.JointName: VNPoint] {
@@ -215,6 +219,14 @@ class VideoAnnotateOperation: AsyncOperation {
                 keyHandLandmarks[key] = point
             }
         }
+        
+        
+        // Ensure that all landmark keys are present, otherwise fill in a zero
+        // TODO: Consider other filling options than just zeros
+        for key in requestedHandLandmarks where keyHandLandmarks[key] == nil {
+            keyHandLandmarks[key] = VNPoint()
+        }
+
 
         return keyHandLandmarks
     }
@@ -229,16 +241,16 @@ class VideoAnnotateOperation: AsyncOperation {
     ///   - handler: VNImageRequestHandler to be used to analyse the face landmarks
     ///
     func invokeFaceLandmarksDetection(handler: VNImageRequestHandler) {
-        DispatchQueue.global(qos: .userInitiated).sync {
+//        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 // Setup the request
-                let faceLandmarksDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: retrieveFaceLandmarksDetectionResults)
+                let faceLandmarksDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: self.retrieveFaceLandmarksDetectionResults)
                 // Perform the request
                 try handler.perform([faceLandmarksDetectionRequest])
             } catch {
                 print("! \(error)")
             }
-        }
+//        }
     }
 
     /// Retrieves results from ML analysis of face pose detection, including the relevant joints and their
@@ -252,8 +264,8 @@ class VideoAnnotateOperation: AsyncOperation {
         guard let observations = request.results?.first as? VNFaceObservation else {
             // Prevent from crashing once face is visible only for certain parts of the record
             // TODO: Consider other filling options than just zeros
-            self.keyFaceLandmarks.append([[CGPoint]]())
-            self.framesAnnotated[self.keyFaceLandmarks.count - 1]["face"] = true
+            self.keyLandmarks.face.append([[CGPoint]]())
+            self.framesAnnotated.value[self.keyLandmarks.face.count - 1]["face"] = true
             
             return
         }
@@ -262,8 +274,8 @@ class VideoAnnotateOperation: AsyncOperation {
         var result = [[CGPoint]]()
         result.append(processFaceLandmarksObservation(observations))
 
-        self.keyFaceLandmarks.append(result)
-        self.framesAnnotated[self.keyFaceLandmarks.count - 1]["face"] = true
+        self.keyLandmarks.face.append(result)
+        self.framesAnnotated.value[self.keyLandmarks.face.count - 1]["face"] = true
     }
 
     func processFaceLandmarksObservation(_ observation: VNFaceObservation) -> [CGPoint] {

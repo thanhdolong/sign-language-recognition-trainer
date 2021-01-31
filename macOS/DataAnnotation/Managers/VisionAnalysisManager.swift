@@ -14,6 +14,16 @@ typealias KeyBodyLandmarks = [[[VNHumanBodyPoseObservation.JointName: VNPoint]]]
 typealias KeyHandLandmarks = [[[VNHumanHandPoseObservation.JointName: VNPoint]]]
 typealias KeyFaceLandmarks = [[[CGPoint]]]
 
+class KeyLandmarks {
+    var body = KeyBodyLandmarks()
+    var hand = KeyHandLandmarks()
+    var face = KeyFaceLandmarks()
+}
+
+class FrameAnotated {
+    var value: [[String: Bool]] = .init()
+}
+
 class VisionAnalysisManager {
 
     // MARK: Properties
@@ -21,15 +31,18 @@ class VisionAnalysisManager {
     private let videoProcessingManager: VideoProcessingManager
 
     private let videoUrl: URL
-    private var framesAnnotated = [[String: Bool]]()
+//    private var framesAnnotated = [[String: Bool]]()
+    private var framesAnnotated = FrameAnotated()
     private var frames = [CGImage]()
 
     private(set) var fps: Int
     private(set) var videoSize = CGSize()
 
-    lazy private var keyBodyLandmarks = KeyBodyLandmarks()
-    lazy private var keyHandLandmarks = KeyHandLandmarks()
-    lazy private var keyFaceLandmarks = KeyFaceLandmarks()
+//    private var keyBodyLandmarks = KeyBodyLandmarks()
+//    private var keyHandLandmarks = KeyHandLandmarks()
+//    private var keyFaceLandmarks = KeyFaceLandmarks()
+    
+    private var keyLandmarks = KeyLandmarks()
 
     lazy var queue: OperationQueue = {
         var queue = OperationQueue()
@@ -63,7 +76,8 @@ class VisionAnalysisManager {
         // Generate the individual frames from the vido
         frames = videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
 
-        framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
+//        framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
+        framesAnnotated.value = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
 
         // Calculate the size of the video
         videoSize = videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
@@ -81,11 +95,11 @@ class VisionAnalysisManager {
             // Process the Vision data for all of the
             
             let videoAnnotateOp = VideoAnnotateOperation(
-                keyBodyLandmarks: keyBodyLandmarks,
-                keyHandLandmarks: keyHandLandmarks,
-                keyFaceLandmarks: keyFaceLandmarks,
+                keyLandmarks: keyLandmarks,
+//                keyHandLandmarks: keyHandLandmarks,
+//                keyFaceLandmarks: keyFaceLandmarks,
                 framesAnnotated: framesAnnotated,
-                handler: handler)
+                frame: frame)
             finishedAnnotationOp.addDependency(videoAnnotateOp)
             operations.append(videoAnnotateOp)
         }
@@ -106,7 +120,7 @@ class VisionAnalysisManager {
     ///
     public func getData() -> (KeyBodyLandmarks, KeyHandLandmarks, KeyFaceLandmarks) {
         if self.isAnnotated() {
-            return (self.keyBodyLandmarks, self.keyHandLandmarks, self.keyFaceLandmarks)
+            return (self.keyLandmarks.body, self.keyLandmarks.hand, self.keyLandmarks.face)
         } else {
             return ([], [], [])
         }
@@ -119,7 +133,7 @@ class VisionAnalysisManager {
     /// - Returns: Bool representation whether is the data already annotated
     ///
     public func isAnnotated() -> Bool {
-        for frameStatus in self.framesAnnotated {
+        for frameStatus in self.framesAnnotated.value {
             for result in frameStatus where result.value == false {
                 return false
             }
