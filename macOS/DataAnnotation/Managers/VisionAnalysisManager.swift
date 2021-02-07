@@ -20,10 +20,6 @@ class KeyLandmarks {
     var face = KeyFaceLandmarks()
 }
 
-class FrameAnotated {
-    var value: [[String: Bool]] = .init()
-}
-
 class VisionAnalysisManager {
 
     // MARK: Properties
@@ -31,17 +27,11 @@ class VisionAnalysisManager {
     private let videoProcessingManager: VideoProcessingManager
 
     private let videoUrl: URL
-//    private var framesAnnotated = [[String: Bool]]()
-    private var framesAnnotated = FrameAnotated()
     private var frames = [CGImage]()
 
     private(set) var fps: Int
     private(set) var videoSize = CGSize()
 
-//    private var keyBodyLandmarks = KeyBodyLandmarks()
-//    private var keyHandLandmarks = KeyHandLandmarks()
-//    private var keyFaceLandmarks = KeyFaceLandmarks()
-    
     private var keyLandmarks = KeyLandmarks()
 
     lazy var queue: OperationQueue = {
@@ -76,9 +66,6 @@ class VisionAnalysisManager {
         // Generate the individual frames from the vido
         frames = videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
 
-//        framesAnnotated = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
-        framesAnnotated.value = Array.init(repeating: ["body": false, "hands": false, "face": false], count: self.frames.count)
-
         // Calculate the size of the video
         videoSize = videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
 
@@ -88,17 +75,9 @@ class VisionAnalysisManager {
             completion()
         }
         
-        for frame in frames {
-            // Create a VNImageRequestHandler for each of the desired frames
-            let handler = VNImageRequestHandler(cgImage: frame, options: [:])
-
-            // Process the Vision data for all of the
-            
+        frames.forEach { frame in
             let videoAnnotateOp = VideoAnnotateOperation(
                 keyLandmarks: keyLandmarks,
-//                keyHandLandmarks: keyHandLandmarks,
-//                keyFaceLandmarks: keyFaceLandmarks,
-                framesAnnotated: framesAnnotated,
                 frame: frame)
             finishedAnnotationOp.addDependency(videoAnnotateOp)
             operations.append(videoAnnotateOp)
@@ -119,26 +98,6 @@ class VisionAnalysisManager {
     ///     `VisionAnalysisManager.isAnnotated()` to find out the current status.
     ///
     public func getData() -> (KeyBodyLandmarks, KeyHandLandmarks, KeyFaceLandmarks) {
-        if self.isAnnotated() {
-            return (self.keyLandmarks.body, self.keyLandmarks.hand, self.keyLandmarks.face)
-        } else {
-            return ([], [], [])
-        }
-    }
-
-    ///
-    /// Determines whether the data associated with this VisionAnalysisManager is already processed and
-    /// annotated.
-    ///
-    /// - Returns: Bool representation whether is the data already annotated
-    ///
-    public func isAnnotated() -> Bool {
-        for frameStatus in self.framesAnnotated.value {
-            for result in frameStatus where result.value == false {
-                return false
-            }
-        }
-
-        return true
+        (self.keyLandmarks.body, self.keyLandmarks.hand, self.keyLandmarks.face)
     }
 }
