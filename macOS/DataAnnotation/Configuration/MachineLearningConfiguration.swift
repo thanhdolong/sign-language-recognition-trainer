@@ -18,4 +18,10 @@ struct MachineLearningConfiguration {
     /// Threshold for the body pose detection using the Vision framework.
     ///
     static let bodyPoseDetectionThreshold: Float = UserDefaults.standard.float(forKey: "bodyPoseDetectionThreshold")
+    
+    ///
+    /// Frames per seconds to be used to process frames from videos.
+    ///
+    static let framesPerSecond: Int = UserDefaults.standard.integer(forKey: "fps")
+    
 }

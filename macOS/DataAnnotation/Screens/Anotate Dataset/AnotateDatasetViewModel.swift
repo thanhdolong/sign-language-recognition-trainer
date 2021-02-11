@@ -41,7 +41,7 @@ extension AnotateDatasetView {
 
         func startAnnotate() {
             guard let selectedFolderUrl = selectedFolderUrl else { fatalError("URL cannot be empty")}
-            let datasetManager = DatasetManager(directoryPath: selectedFolderUrl.path, fps: 3)
+            let datasetManager = DatasetManager(directoryPath: selectedFolderUrl.path, fps: MachineLearningConfiguration.framesPerSecond)
 
             datasetManager.generateMLTable { [weak self] result in
                 guard let self = self else { return }
