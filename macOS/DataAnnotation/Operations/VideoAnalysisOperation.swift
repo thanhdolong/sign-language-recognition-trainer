@@ -150,7 +150,7 @@ class VideoAnnotateOperation: AsyncOperation {
     ///   - error: Possible error occuring during the analysis
     ///
     func retrieveHandPoseDetectionResults(request: VNRequest, error: Error?) {
-        guard let observations = request.results?.first as? VNHumanHandPoseObservation else {
+        guard let observations = request.results as? [VNHumanHandPoseObservation] else {
             // Prevent from crashing once hands are visible only for certain parts of the record
             // TODO: Consider other filling options than just zeros
             return self.keyLandmarks.hand.append([[VNHumanHandPoseObservation.JointName: VNPoint]]())
@@ -158,8 +158,10 @@ class VideoAnnotateOperation: AsyncOperation {
 
         // Process each observation to find the recognized hand landmarks
         var result = [[VNHumanHandPoseObservation.JointName: VNPoint]]()
-        result.append(processHandPoseObservation(observations))
-
+        observations.forEach { observation in
+            result.append(processHandPoseObservation(observation))
+        }
+        
         self.keyLandmarks.hand.append(result)
     }
 

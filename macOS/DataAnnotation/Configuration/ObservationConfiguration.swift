@@ -19,7 +19,7 @@ struct ObservationConfiguration {
     ///
     /// List of all the data annotations to be analyzed using Vision.
     ///
-    static let desiredDataAnnotations: [ObservationType] = [.bodyLandmarks, .handLandmarks, .faceLandmarks]
+    static let desiredDataAnnotations: [ObservationType] = [.bodyLandmarks, .handLandmarks]
 
     ///
     /// List of requested recognized body landmarks key in order to filter out any redundant.

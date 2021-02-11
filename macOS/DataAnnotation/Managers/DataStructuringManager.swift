@@ -52,9 +52,10 @@ class DataStructuringManager {
             }
 
             // Fill in the values for all potential landmarks that were not captured
-            converted.forEach { key, _ in
-                if converted[key]?.count != observationIndex + 1 {
-                    converted[key]?.append(0.0)
+            for handIndex in 0...1 {
+                for landmarkKey in ObservationConfiguration.requestedHandLandmarks where converted["\(landmarkKey.stringValue())_\(handIndex)_X"]?.count != observationIndex + 1 {
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(handIndex)_X")
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(handIndex)_Y")
                 }
             }
         }
@@ -75,12 +76,18 @@ class DataStructuringManager {
         // Prepare the dictionary for all of the possible landmarks keys to be added
         var converted = [String: [Double]]()
 
-        for (_, observation) in recognizedLandmarks.enumerated() {
+        for (observationIndex, observation) in recognizedLandmarks.enumerated() {
             if !observation.isEmpty {
                 // Structure the data with the new keys
                 for (landmarkKey, value) in observation[0] {
                     converted.add(Double(value.location.x), toArrayOn: "\(landmarkKey.stringValue())_X")
                     converted.add(Double(value.location.y), toArrayOn: "\(landmarkKey.stringValue())_Y")
+                }
+                
+                // Fill in the values for all potential landmarks that were not captured
+                for landmarkKey in ObservationConfiguration.requestedBodyLandmarks where converted["\(landmarkKey.stringValue())_X"]?.count != observationIndex + 1 {
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_X")
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
             } else {
                 for landmarkKey in ObservationConfiguration.requestedBodyLandmarks {
@@ -182,12 +189,8 @@ class DataStructuringManager {
 
         for (key, value) in stackedData {
             convertedToMLData[key] = value
-            print("\(key) + \(value.count)")
         }
-
-        print(videoMetadata["width"]?.count)
-        print(videoMetadata["height"]?.count)
-        print(videoMetadata["fps"]?.count)
+        
         convertedToMLData["video_size_width"] = videoMetadata["width"]
         convertedToMLData["video_size_height"] = videoMetadata["height"]
         convertedToMLData["video_fps"] = videoMetadata["fps"]

@@ -106,6 +106,7 @@ class DatasetManager {
         }
         
         operations.append(videoAnalysisFinishedOp)
+        print("READY")
         queue.addOperations(operations, waitUntilFinished: false)
     }
 }
