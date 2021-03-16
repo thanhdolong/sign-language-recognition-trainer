@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct GeneralSettingsView: View {
+    @AppStorage("analyzeHands") private var outputHandsLandmarks = true
+    @AppStorage("analyzeBody") private var outputBodyLandmarks = true
+    @AppStorage("analyzeFace") private var outputFaceLandmarks = true
+    
     var body: some View {
         Form {
-            Text("No current settings")
+            Text("Included body parts in output:")
+            
+            VStack(alignment: .leading) {
+                Toggle("Hands landmarks", isOn: $outputHandsLandmarks)
+                Toggle("Body landmarks", isOn: $outputBodyLandmarks)
+                Toggle("Face landmarks", isOn: $outputFaceLandmarks)
+            }
+            .padding()
+            
         }
         .padding()
     }

@@ -56,6 +56,7 @@ class DatasetManager {
         var labels = [String]()
         var analysesManagers = [VisionAnalysisManager]()
         let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 32
         var operations: [Operation] = []
         do {
             // Load all of the labels present in the dataset
