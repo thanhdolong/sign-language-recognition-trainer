@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct GeneralSettingsView: View {
-    @AppStorage("analyzeHands") private var outputHandsLandmarks = true
-    @AppStorage("analyzeBody") private var outputBodyLandmarks = true
-    @AppStorage("analyzeFace") private var outputFaceLandmarks = true
+    @AppStorage("analyzeHands") private var outputHandsLandmarks: Bool = true
+    @AppStorage("analyzeBody") private var outputBodyLandmarks: Bool = true
+    @AppStorage("analyzeFace") private var outputFaceLandmarks: Bool = true
     
     var body: some View {
         Form {

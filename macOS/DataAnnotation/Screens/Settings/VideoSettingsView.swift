@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VideoSettingsView: View {
-    @AppStorage("fps") private var fps = 1
+    @AppStorage("fps") private var fps: Int = 1
 
     var body: some View {
         Form {
