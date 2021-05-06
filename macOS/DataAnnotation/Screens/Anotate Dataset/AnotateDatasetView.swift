@@ -22,12 +22,7 @@ struct AnotateDatasetView: View {
                     Text("Drag and drop dataset")
                 }
             }
-            .frame(width: 320, height: 320, alignment: .center)
-            .background(Color.black.opacity(0.8))
-            .cornerRadius(8)
-            .background(EmptyView())
-            .shadow(color: .black,
-                    radius: 10)
+            .modifier(CardViewModifier())
             .onTapGesture { viewModel.selectFile() }
             .onDrop(of: ["public.file-url"],
                     isTargeted: nil,
