@@ -9,29 +9,24 @@
 import Foundation
 import Vision
 
-struct ObservationConfiguration {
-    enum ObservationType {
-        case bodyLandmarks
-        case handLandmarks
-        case faceLandmarks
-    }
+enum ObservationType: String, CaseIterable {
+    case bodyLandmarks
+    case handLandmarks
+    case faceLandmarks
+}
 
+struct ObservationConfiguration {
     ///
     /// List of all the data annotations to be analyzed using Vision.
     ///
     static var desiredDataAnnotations: [ObservationType] {
-        set {}
         get {
             var result = [ObservationType]()
             
-            if UserDefaults.standard.bool(forKey: "analyzeHands") {
-                result.append(.handLandmarks)
-            }
-            if UserDefaults.standard.bool(forKey: "analyzeBody") {
-                result.append(.bodyLandmarks)
-            }
-            if UserDefaults.standard.bool(forKey: "analyzeFace") {
-                result.append(.faceLandmarks)
+            ObservationType.allCases.forEach { observationType in
+                if UserDefaults.standard.bool(forKey: observationType.rawValue) {
+                    result.append(observationType)
+                }
             }
             
             return result

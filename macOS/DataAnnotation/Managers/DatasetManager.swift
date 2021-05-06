@@ -29,7 +29,7 @@ class DatasetManager {
     lazy var queue: OperationQueue = {
         var queue = OperationQueue()
         queue.name = "DatasetManager"
-        queue.maxConcurrentOperationCount = 5
+        queue.maxConcurrentOperationCount = 3
         return queue
     }()
 
@@ -93,7 +93,6 @@ class DatasetManager {
                         guard item.contains(".mp4") else{
                             throw DatasetError.unsupportedFormat
                         }
-                        let fps = fps
                         // Load and process the annotations for each of the videos
                         let currentItemAnalysisManager = VisionAnalysisManager(
                             videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
