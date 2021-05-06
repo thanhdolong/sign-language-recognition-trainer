@@ -19,7 +19,7 @@ The data is saved in a custom data format into a `.csv` file. More information r
 
 ### Download the app
 
-The latest (as well as all the previous stable builds) can be downloaded as a `.dmg` here.
+The latest (as well as all the previous stable builds) can be downloaded as a `.dmg` [here](https://github.com/thanhdolong/sign-language-recognition-trainer/releases).
 
 #### Requirements
 
