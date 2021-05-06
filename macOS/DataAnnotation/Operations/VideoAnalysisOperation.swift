@@ -10,17 +10,21 @@ import Vision
 
 class VideoAnalysisOperation: AsyncOperation {
     let visionAnalysisManager: VisionAnalysisManager
-    let completion: (() -> ())?
+    let completion: ((VisionAnalysisResult) -> ())?
     
     init(visionAnalysisManager: VisionAnalysisManager,
-         completion: (() -> ())? = nil) {
+         completion: ((VisionAnalysisResult) -> ())? = nil) {
         self.visionAnalysisManager = visionAnalysisManager
         self.completion = completion
     }
     
     override func main() {
         self.visionAnalysisManager.annotate {
-            self.completion?()
+            let result = VisionAnalysisResult(
+                keyLandmarks: self.visionAnalysisManager.keyLandmarks,
+                videoSize: self.visionAnalysisManager.videoSize,
+                fps: self.visionAnalysisManager.fps)
+            self.completion?(result)
             self.state = .Finished
         }
     }
@@ -30,12 +34,14 @@ class VideoAnnotateOperation: AsyncOperation {
     var keyLandmarks: KeyLandmarks
     let handler: VNImageRequestHandler
     let queue: OperationQueue = .init()
+    let completion: ((KeyLandmarks) -> ())?
     
-    init(keyLandmarks: KeyLandmarks,
-         frame: CGImage,
-         options: [VNImageOption : Any] = [:]) {
-        self.keyLandmarks = keyLandmarks
+    init(frame: CGImage,
+         options: [VNImageOption : Any] = [:],
+         completion: ((KeyLandmarks) -> ())? = nil) {
+        self.completion = completion
         self.handler = VNImageRequestHandler(cgImage: frame, options: options)
+        self.keyLandmarks = .init()
     }
     
     override func main() {
@@ -43,6 +49,7 @@ class VideoAnnotateOperation: AsyncOperation {
             self.invokeBodyPoseDetection(handler: self.handler)
             self.invokeHandPoseDetection(handler: self.handler)
             self.invokeFaceLandmarksDetection(handler: self.handler)
+            self.completion?(self.keyLandmarks)
             self.state = .Finished
         }
     }

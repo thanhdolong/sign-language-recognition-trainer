@@ -25,6 +25,13 @@ class DatasetManager {
     private let directoryPath: String
     private let fps: Int
     private let fileManager: FileManager
+    
+    lazy var queue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "DatasetManager"
+        queue.maxConcurrentOperationCount = 5
+        return queue
+    }()
 
     // MARK: Methods
 
@@ -54,9 +61,7 @@ class DatasetManager {
     func generateMLTable(_ completion: @escaping(Result<MLDataTable, Error>) -> ()) {
         var foundSubdirectories = [String]()
         var labels = [String]()
-        var analysesManagers = [VisionAnalysisManager]()
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 32
+        var analysisResult = [VisionAnalysisResult]()
         var operations: [Operation] = []
         do {
             // Load all of the labels present in the dataset
@@ -69,13 +74,12 @@ class DatasetManager {
             do {
                 // Structure the data into a MLDataTable
                 let outputDataStructuringManager = DataStructuringManager()
-                let output = try outputDataStructuringManager.combineData(labels: labels, visionAnalyses: analysesManagers)
+                let output = try outputDataStructuringManager.combineData(labels: labels, visionAnalyses: analysisResult)
                 completion(.success(output))
             } catch {
                 completion(.failure(error))
             }
         }
-
         // Create annotations managers for each of the labels
         do {
             for subdirectory in foundSubdirectories where subdirectory.contains(".") == false {
@@ -89,16 +93,20 @@ class DatasetManager {
                         guard item.contains(".mp4") else{
                             throw DatasetError.unsupportedFormat
                         }
-
+                        let fps = fps
                         // Load and process the annotations for each of the videos
-                        let currentItemAnalysisManager = VisionAnalysisManager(videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
-                                                                               fps: self.fps)
+                        let currentItemAnalysisManager = VisionAnalysisManager(
+                            videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
+                            fps: fps)
+
+
                         
-                        let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: currentItemAnalysisManager)
+                        let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: currentItemAnalysisManager) { result in
+                            analysisResult.append(result)
+                        }
+                        
                         operations.append(videoAnalysisOp)
-                        videoAnalysisFinishedOp.addDependency(videoAnalysisOp)
                         
-                        analysesManagers.append(currentItemAnalysisManager)
                         labels.append(subdirectory)
                     }
             }
@@ -106,8 +114,20 @@ class DatasetManager {
             completion(.failure(error))
         }
         
-        operations.append(videoAnalysisFinishedOp)
+        if let lastOp = operations.last {
+            videoAnalysisFinishedOp.addDependency(lastOp)
+        }
+
+        operations.insert(videoAnalysisFinishedOp, at: 0)
         print("READY")
         queue.addOperations(operations, waitUntilFinished: false)
+    }
+}
+
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
     }
 }

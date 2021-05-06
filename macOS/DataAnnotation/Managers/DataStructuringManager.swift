@@ -142,9 +142,9 @@ class DataStructuringManager {
     ///
     /// - Returns: Newly constructed MLDataTable
     ///
-    func combineData(labels: [String], visionAnalyses: [VisionAnalysisManager]) throws -> MLDataTable {
+    func combineData(labels: [String], results: [VisionAnalysisResult]) throws -> MLDataTable {
         // Ensure that the data is equally long
-        guard labels.count == visionAnalyses.count else {
+        guard labels.count == results.count else {
             throw OutputProcessingError.invalidData
         }
 
@@ -156,27 +156,25 @@ class DataStructuringManager {
         var stackedData = [String: [[Double]]]()
         var videoMetadata = ["width": [Double](), "height": [Double](), "fps": [Double]()]
 
-        for analysis in visionAnalyses {
-            let analyzedData = analysis.getData()
-
+        for analysis in results {
             // Append data for body landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.bodyLandmarks) {
                 for (key, value) in
-                    convertBodyLandmarksToMLData(recognizedLandmarks: analyzedData.0) {
+                    convertBodyLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.body) {
                     stackedData.add(value, toArrayOn: key)
                 }
             }
 
             // Append data for hand landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.handLandmarks) {
-                for (key, value) in convertHandLandmarksToMLData(recognizedLandmarks: analyzedData.1) {
+                for (key, value) in convertHandLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.hand) {
                     stackedData.add(value, toArrayOn: key)
                 }
             }
 
             // Append data for face landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.faceLandmarks) {
-                for (key, value) in convertFaceLandmarksToMLData(recognizedLandmarks: analyzedData.2) {
+                for (key, value) in convertFaceLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.face) {
                     stackedData.add(value, toArrayOn: key)
                 }
             }

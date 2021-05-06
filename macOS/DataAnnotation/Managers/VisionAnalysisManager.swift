@@ -14,30 +14,35 @@ typealias KeyBodyLandmarks = [[[VNHumanBodyPoseObservation.JointName: VNPoint]]]
 typealias KeyHandLandmarks = [[[VNHumanHandPoseObservation.JointName: VNPoint]]]
 typealias KeyFaceLandmarks = [[[CGPoint]]]
 
-class KeyLandmarks {
+struct KeyLandmarks {
     var body = KeyBodyLandmarks()
     var hand = KeyHandLandmarks()
     var face = KeyFaceLandmarks()
 }
 
-class VisionAnalysisManager {
+struct VisionAnalysisResult {
+    let keyLandmarks : KeyLandmarks
+    let videoSize: CGSize
+    let fps: Int
+}
+
+final class VisionAnalysisManager {
 
     // MARK: Properties
-
-    private let videoProcessingManager: VideoProcessingManager
-
+    
     private let videoUrl: URL
     private var frames = [CGImage]()
 
     private(set) var fps: Int
     private(set) var videoSize = CGSize()
 
-    private var keyLandmarks = KeyLandmarks()
+    var keyLandmarks = KeyLandmarks()
+    var operations: [Operation] = []
 
     lazy var queue: OperationQueue = {
         var queue = OperationQueue()
         queue.name = "VisionAnalysisManager"
-        queue.maxConcurrentOperationCount = 1
+        queue.maxConcurrentOperationCount = .max
         return queue
     }()
 
@@ -52,11 +57,9 @@ class VisionAnalysisManager {
     ///   - fps: Frames per second to be annotated
     ///
     init(videoUrl: URL,
-         fps: Int = UserDefaults.standard.integer(forKey: "fps"),
-         videoProcessingManager: VideoProcessingManager = .init()) {
+         fps: Int = UserDefaults.standard.integer(forKey: "fps")) {
         self.videoUrl = videoUrl
         self.fps = fps
-        self.videoProcessingManager = videoProcessingManager
     }
 
     ///
@@ -64,28 +67,30 @@ class VisionAnalysisManager {
     ///
     public func annotate(_ completion: @escaping () -> ()) {
         // Generate the individual frames from the vido
-        frames = videoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
+        frames = VideoProcessingManager.getAllFrames(videoUrl: self.videoUrl, fps: self.fps)
 
         // Calculate the size of the video
-        videoSize = videoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
-
-        var operations: [Operation] = []
+        videoSize = VideoProcessingManager.getVideoSize(videoUrl: self.videoUrl)
         
         let finishedAnnotationOp = BlockOperation {
+            self.operations.removeAll()
             completion()
         }
         
         frames.forEach { frame in
             let videoAnnotateOp = VideoAnnotateOperation(
-                keyLandmarks: keyLandmarks,
-                frame: frame)
-            finishedAnnotationOp.addDependency(videoAnnotateOp)
+                frame: frame) { landmarks in
+                self.keyLandmarks = landmarks
+            }
             operations.append(videoAnnotateOp)
+        }
+        
+        if let lastOp = operations.last {
+            finishedAnnotationOp.addDependency(lastOp)
         }
         
         operations.insert(finishedAnnotationOp, at: 0)
         queue.addOperations(operations, waitUntilFinished: false)
-
     }
 
     ///

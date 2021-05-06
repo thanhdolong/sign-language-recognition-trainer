@@ -42,10 +42,15 @@ extension AnotateVideoView {
                 self.analysisManager = VisionAnalysisManager(videoUrl: selectedVideoUrl,
                                                              fps: UserDefaults.standard.integer(forKey: "fps"))
 
-                let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: self.analysisManager) {
+                let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: self.analysisManager) { _ in
                     do {
-                        let data = try self.dataStructuringManager.combineData(labels: [nameVideoUrl],
-                                                                               visionAnalyses: [self.analysisManager])
+                        let result = VisionAnalysisResult(
+                            keyLandmarks: self.analysisManager.keyLandmarks,
+                            videoSize: self.analysisManager.videoSize,
+                            fps: self.analysisManager.fps)
+                        let data = try self.dataStructuringManager.combineData(
+                            labels: [nameVideoUrl],
+                            visionAnalyses: [result])
                         
                         self.saveCVS(data: data)
                     } catch {
