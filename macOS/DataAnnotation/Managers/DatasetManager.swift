@@ -74,7 +74,7 @@ class DatasetManager {
             do {
                 // Structure the data into a MLDataTable
                 let outputDataStructuringManager = DataStructuringManager()
-                let output = try outputDataStructuringManager.combineData(labels: labels, visionAnalyses: analysisResult)
+                let output = try outputDataStructuringManager.combineData(labels: labels, results: analysisResult)
                 completion(.success(output))
             } catch {
                 completion(.failure(error))
@@ -99,8 +99,6 @@ class DatasetManager {
                             videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),
                             fps: fps)
 
-
-                        
                         let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: currentItemAnalysisManager) { result in
                             analysisResult.append(result)
                         }
