@@ -14,7 +14,7 @@ typealias KeyBodyLandmarks = [[[VNHumanBodyPoseObservation.JointName: VNPoint]]]
 typealias KeyHandLandmarks = [[[VNHumanHandPoseObservation.JointName: VNPoint]]]
 typealias KeyFaceLandmarks = [[[CGPoint]]]
 
-struct KeyLandmarks {
+final class KeyLandmarks {
     var body = KeyBodyLandmarks()
     var hand = KeyHandLandmarks()
     var face = KeyFaceLandmarks()
@@ -79,9 +79,7 @@ final class VisionAnalysisManager {
         
         frames.forEach { frame in
             let videoAnnotateOp = VideoAnnotateOperation(
-                frame: frame) { landmarks in
-                self.keyLandmarks = landmarks
-            }
+                frame: frame, keyLandmarks: self.keyLandmarks)
             operations.append(videoAnnotateOp)
         }
         

@@ -34,14 +34,15 @@ class VideoAnnotateOperation: AsyncOperation {
     var keyLandmarks: KeyLandmarks
     let handler: VNImageRequestHandler
     let queue: OperationQueue = .init()
-    let completion: ((KeyLandmarks) -> ())?
+    let completion: (() -> ())?
     
     init(frame: CGImage,
+         keyLandmarks: KeyLandmarks,
          options: [VNImageOption : Any] = [:],
-         completion: ((KeyLandmarks) -> ())? = nil) {
+         completion: (() -> ())? = nil) {
         self.completion = completion
+        self.keyLandmarks = keyLandmarks
         self.handler = VNImageRequestHandler(cgImage: frame, options: options)
-        self.keyLandmarks = .init()
     }
     
     override func main() {
@@ -49,7 +50,7 @@ class VideoAnnotateOperation: AsyncOperation {
             self.invokeBodyPoseDetection(handler: self.handler)
             self.invokeHandPoseDetection(handler: self.handler)
             self.invokeFaceLandmarksDetection(handler: self.handler)
-            self.completion?(self.keyLandmarks)
+            self.completion?()
             self.state = .Finished
         }
     }
