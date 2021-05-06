@@ -27,6 +27,7 @@ struct ContentView: View {
                 Label("Anotate dataset", systemImage: "list.bullet.rectangle")
             }
         }
+        .animation(.spring())
         .listStyle(SidebarListStyle())
     }
 }

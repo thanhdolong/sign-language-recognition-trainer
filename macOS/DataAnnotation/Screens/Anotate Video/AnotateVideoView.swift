@@ -23,15 +23,15 @@ struct AnotateVideoView: View {
                     Text("Drag and drop video file")
                 }
             }
-            .frame(width: 480, height: 480, alignment: .center)
-            .background(Color.black.opacity(0.5))
-            .cornerRadius(8)
             .onTapGesture { viewModel.selectFile() }
             .onDrop(of: ["public.file-url"],
                     isTargeted: nil,
                     perform: viewModel.handleOnDrop(providers:))
+            .modifier(CardViewModifier())
 
-            Text(viewModel.nameVideoUrl ?? "")
+            if let nameVideoUrl = viewModel.nameVideoUrl {
+                Text(nameVideoUrl)
+            }
 
             Spacer()
 
