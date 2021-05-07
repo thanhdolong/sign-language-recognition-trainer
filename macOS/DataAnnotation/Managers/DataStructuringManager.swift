@@ -49,12 +49,14 @@ class DataStructuringManager {
             }
 
             // Structure the data with the new keys
-            for (handIndex, data) in observation[0..<maxObservationIndex].enumerated() {
-                if let rightWrist = rightWrist, let leftWrist = leftWrist, let wrist = data[.wrist]?.location.x {
-                    let distanceFromRight = abs(Double(wrist) - rightWrist[handIndex])
-                    let distanceFromLeft = abs(Double(wrist) - leftWrist[handIndex])
-                    determinedHand = distanceFromLeft < distanceFromRight ? .left : .right
+            observation.enumerated().forEach { (handIndex, data) in
+                guard let rightWrist = rightWrist, let leftWrist = leftWrist, let wrist = data[.wrist]?.location.x else {
+                    return
                 }
+                
+                let distanceFromRight = abs(Double(wrist) - rightWrist[handIndex])
+                let distanceFromLeft = abs(Double(wrist) - leftWrist[handIndex])
+                determinedHand = distanceFromLeft < distanceFromRight ? .left : .right
                 
                 for (landmarkKey, value) in data {
                     converted.add(Double(value.location.x),
@@ -65,15 +67,23 @@ class DataStructuringManager {
             }
 
             // Fill in the values for all potential landmarks that were not captured
-            for handIndex in 0...1 {
-                for landmarkKey in ObservationConfiguration.requestedHandLandmarks where converted["\(landmarkKey.stringValue())_\(handIndex)_X"]?.count != observationIndex + 1 {
-                    converted.add(0,
-                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_X")
-                    converted.add(0,
-                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_Y")
-                }
+            for landmarkKey in ObservationConfiguration.requestedHandLandmarks
+            where converted["\(landmarkKey.stringValue())_\(Hand.left.rawValue)_X"]?.count != observationIndex + 1  {
+                converted.add(0,
+                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.left.rawValue)_X")
+                converted.add(0,
+                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.left.rawValue)_Y")
+            }
+            
+            for landmarkKey in ObservationConfiguration.requestedHandLandmarks
+            where converted["\(landmarkKey.stringValue())_\(Hand.right.rawValue)_X"]?.count != observationIndex + 1  {
+                converted.add(0,
+                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.right.rawValue)_X")
+                converted.add(0,
+                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.right.rawValue)_Y")
             }
         }
+        
 
         return converted
     }
@@ -92,29 +102,22 @@ class DataStructuringManager {
         var converted = [String: [Double]]()
 
         for (observationIndex, observation) in recognizedLandmarks.enumerated() {
-            // TODO: add to setings
-            var lastValueX: Double = 0
-            var lastValueY: Double = 0
-            
             if !observation.isEmpty {
                 // Structure the data with the new keys
                 for (landmarkKey, value) in observation[0] {
-                    lastValueX = Double(value.location.x)
-                    lastValueY = Double(value.location.y)
-                    
                     converted.add(Double(value.location.x), toArrayOn: "\(landmarkKey.stringValue())_X")
                     converted.add(Double(value.location.y), toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
                 
                 // Fill in the values for all potential landmarks that were not captured
                 for landmarkKey in ObservationConfiguration.requestedBodyLandmarks where converted["\(landmarkKey.stringValue())_X"]?.count != observationIndex + 1 {
-                    converted.add(lastValueX, toArrayOn: "\(landmarkKey.stringValue())_X")
-                    converted.add(lastValueY, toArrayOn: "\(landmarkKey.stringValue())_Y")
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_X")
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
             } else {
                 for landmarkKey in ObservationConfiguration.requestedBodyLandmarks {
-                    converted.add(lastValueX, toArrayOn: "\(landmarkKey.stringValue())_X")
-                    converted.add(lastValueY, toArrayOn: "\(landmarkKey.stringValue())_Y")
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_X")
+                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
             }
         }

@@ -9,48 +9,62 @@ import SwiftUI
 
 struct AnotateDatasetView: View {
     @ObservedObject private(set) var viewModel: ViewModel
-
+    
     var body: some View {
-        VStack {
-            Spacer()
-
-            HStack {
-                if viewModel.isStartProcessingActive {
-                    box(title: "Classes", subtitle: "\(viewModel.subdirectories)")
-                    box(title: "Items", subtitle: "\(viewModel.files)")
-                } else {
-                    Text("Drag and drop dataset")
-                }
-            }
-            .modifier(CardViewModifier())
-            .onTapGesture { viewModel.selectFile() }
-            .onDrop(of: ["public.file-url"],
-                    isTargeted: nil,
-                    perform: viewModel.handleOnDrop(providers:))
-
-            Spacer()
-
-            HStack(alignment: .bottom, spacing: 32.0) {
-                Button(action: viewModel.selectFile) {
-                    Text("Load Dataset")
-                }
-
-                if viewModel.isStartProcessingActive {
-                    Button(action: viewModel.startAnnotate) {
-                        Text("Start Processing")
+        ZStack {
+            VStack {
+                Spacer()
+                
+                VStack {
+                    HStack {
+                        if viewModel.isStartProcessingActive {
+                            box(title: "Classes", subtitle: "\(viewModel.subdirectories)")
+                            box(title: "Items", subtitle: "\(viewModel.files)")
+                        } else {
+                            Text("Drag and drop dataset")
+                        }
+                    }
+                    
+                    if viewModel.errorMessage.isEmpty == false {
+                        Text(viewModel.errorMessage)
+                            .padding()
                     }
                 }
+                .modifier(CardViewModifier())
+                .onTapGesture { viewModel.selectFile() }
+                .onDrop(of: ["public.file-url"],
+                        isTargeted: nil,
+                        perform: viewModel.handleOnDrop(providers:))
+                
+                
+                Spacer()
+                
+                HStack(alignment: .bottom, spacing: 32.0) {
+                    Button(action: viewModel.selectFile) {
+                        Text("Load Dataset")
+                    }
+                    
+                    if viewModel.isStartProcessingActive {
+                        Button(action: viewModel.startAnnotate) {
+                            Text("Start Processing")
+                        }
+                    }
+                }
+                .padding()
             }
-            .padding()
+            
+            if viewModel.showLoading {
+                LoadingView()
+            }
         }
     }
-
+    
     func box(title: String, subtitle: String) -> some View {
         VStack {
             Text(subtitle)
                 .font(.title)
                 .fontWeight(.semibold)
-
+            
             Text(title)
         }
         .padding()
