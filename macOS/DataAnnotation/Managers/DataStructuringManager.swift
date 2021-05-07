@@ -19,6 +19,10 @@ class DataStructuringManager {
         case invalidData
         case structuringData
     }
+    
+    enum Hand: String {
+        case left, right
+    }
 
     lazy var queue = OperationQueue()
 
@@ -31,10 +35,11 @@ class DataStructuringManager {
     ///
     /// - Returns: Dictionary of Strings to arrays of Doubles for further processing
     ///
-    func convertHandLandmarksToMLData(recognizedLandmarks: KeyHandLandmarks) -> [String: [Double]] {
+    func convertHandLandmarksToMLData(recognizedLandmarks: KeyHandLandmarks, rightWrist: [Double]? = nil, leftWrist: [Double]? = nil) -> [String: [Double]] {
         // Prepare the dictionary for all of the possible landmarks keys to be added
         var converted = [String: [Double]]()
-
+        var determinedHand: Hand?
+        
         for (observationIndex, observation) in recognizedLandmarks.enumerated() {
             // Ensure that maximally two hand are analyzed
             var maxObservationIndex = 2
@@ -45,17 +50,27 @@ class DataStructuringManager {
 
             // Structure the data with the new keys
             for (handIndex, data) in observation[0..<maxObservationIndex].enumerated() {
+                if let rightWrist = rightWrist, let leftWrist = leftWrist, let wrist = data[.wrist]?.location.x {
+                    let distanceFromRight = abs(Double(wrist) - rightWrist[handIndex])
+                    let distanceFromLeft = abs(Double(wrist) - leftWrist[handIndex])
+                    determinedHand = distanceFromLeft < distanceFromRight ? .left : .right
+                }
+                
                 for (landmarkKey, value) in data {
-                    converted.add(Double(value.location.x), toArrayOn: "\(landmarkKey.stringValue())_\(handIndex)_X")
-                    converted.add(Double(value.location.y), toArrayOn: "\(landmarkKey.stringValue())_\(handIndex)_Y")
+                    converted.add(Double(value.location.x),
+                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_X")
+                    converted.add(Double(value.location.y),
+                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_Y")
                 }
             }
 
             // Fill in the values for all potential landmarks that were not captured
             for handIndex in 0...1 {
                 for landmarkKey in ObservationConfiguration.requestedHandLandmarks where converted["\(landmarkKey.stringValue())_\(handIndex)_X"]?.count != observationIndex + 1 {
-                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(handIndex)_X")
-                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(handIndex)_Y")
+                    converted.add(0,
+                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_X")
+                    converted.add(0,
+                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_Y")
                 }
             }
         }
@@ -77,22 +92,29 @@ class DataStructuringManager {
         var converted = [String: [Double]]()
 
         for (observationIndex, observation) in recognizedLandmarks.enumerated() {
+            // TODO: add to setings
+            var lastValueX: Double = 0
+            var lastValueY: Double = 0
+            
             if !observation.isEmpty {
                 // Structure the data with the new keys
                 for (landmarkKey, value) in observation[0] {
+                    lastValueX = Double(value.location.x)
+                    lastValueY = Double(value.location.y)
+                    
                     converted.add(Double(value.location.x), toArrayOn: "\(landmarkKey.stringValue())_X")
                     converted.add(Double(value.location.y), toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
                 
                 // Fill in the values for all potential landmarks that were not captured
                 for landmarkKey in ObservationConfiguration.requestedBodyLandmarks where converted["\(landmarkKey.stringValue())_X"]?.count != observationIndex + 1 {
-                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_X")
-                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_Y")
+                    converted.add(lastValueX, toArrayOn: "\(landmarkKey.stringValue())_X")
+                    converted.add(lastValueY, toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
             } else {
                 for landmarkKey in ObservationConfiguration.requestedBodyLandmarks {
-                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_X")
-                    converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_Y")
+                    converted.add(lastValueX, toArrayOn: "\(landmarkKey.stringValue())_X")
+                    converted.add(lastValueY, toArrayOn: "\(landmarkKey.stringValue())_Y")
                 }
             }
         }
@@ -164,17 +186,19 @@ class DataStructuringManager {
                     stackedData.add(value, toArrayOn: key)
                 }
             }
-
+            
             // Append data for hand landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.handLandmarks) {
-                for (key, value) in convertHandLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.hand) {
+                convertHandLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.hand,
+                                             rightWrist: stackedData["rightWrist_X"]?.last,
+                                             leftWrist: stackedData["leftWrist_X"]?.last).forEach { key, value in
                     stackedData.add(value, toArrayOn: key)
                 }
             }
 
             // Append data for face landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.faceLandmarks) {
-                for (key, value) in convertFaceLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.face) {
+                convertFaceLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.face).forEach { key, value in
                     stackedData.add(value, toArrayOn: key)
                 }
             }
