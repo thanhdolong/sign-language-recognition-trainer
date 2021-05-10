@@ -52,7 +52,6 @@ struct AnotateDatasetView: View {
                 }
                 .padding()
             }
-            
             if viewModel.showLoading {
                 LoadingView()
             }

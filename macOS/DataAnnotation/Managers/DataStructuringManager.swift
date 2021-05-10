@@ -9,6 +9,7 @@
 import Foundation
 import CreateML
 import Vision
+import CoreLocation
 
 class DataStructuringManager {
 
@@ -35,55 +36,62 @@ class DataStructuringManager {
     ///
     /// - Returns: Dictionary of Strings to arrays of Doubles for further processing
     ///
-    func convertHandLandmarksToMLData(recognizedLandmarks: KeyHandLandmarks, rightWrist: [Double]? = nil, leftWrist: [Double]? = nil) -> [String: [Double]] {
+    func convertHandLandmarksToMLData(recognizedLandmarks: KeyHandLandmarks,
+                                      rightWrist: (x: [Double]?, y: [Double]?)? = nil,
+                                      leftWrist:  (x: [Double]?, y: [Double]?)? = nil) -> [String: [Double]] {
         // Prepare the dictionary for all of the possible landmarks keys to be added
         var converted = [String: [Double]]()
-        var determinedHand: Hand?
         
-        for (observationIndex, observation) in recognizedLandmarks.enumerated() {
-            // Ensure that maximally two hand are analyzed
-            var maxObservationIndex = 2
-
-            if maxObservationIndex > observation.count {
-                maxObservationIndex = observation.count
-            }
-
+        recognizedLandmarks.enumerated().forEach { (recognizedLandmarksIndex, observation) in
             // Structure the data with the new keys
-            observation.enumerated().forEach { (handIndex, data) in
-                guard let rightWrist = rightWrist, let leftWrist = leftWrist, let wrist = data[.wrist]?.location.x else {
-                    return
+            var maxObservation = 2
+            if maxObservation > observation.count {
+                maxObservation = observation.count
+            }
+            
+            for (handIndex, data) in observation[0..<maxObservation].enumerated() {
+                guard let rightWristX = rightWrist?.x,
+                      let rightWristY = rightWrist?.y,
+                      let leftWristX = leftWrist?.x,
+                      let leftWristY = leftWrist?.y else {
+                    fatalError("Cannot continue")
                 }
                 
-                let distanceFromRight = abs(Double(wrist) - rightWrist[handIndex])
-                let distanceFromLeft = abs(Double(wrist) - leftWrist[handIndex])
-                determinedHand = distanceFromLeft < distanceFromRight ? .left : .right
+                let determinedHand: Hand
+                let rightWrist = CLLocation(latitude: rightWristX[recognizedLandmarksIndex], longitude: rightWristY[recognizedLandmarksIndex])
+                let leftWrist = CLLocation(latitude: leftWristX[recognizedLandmarksIndex], longitude: leftWristY[recognizedLandmarksIndex])
+                
+                if handIndex == 0, let wrist = data[.wrist] {
+                    let wristLocation = CLLocation(latitude: Double(wrist.x), longitude: Double(wrist.y))
+                    determinedHand = rightWrist.distance(from: wristLocation) < leftWrist.distance(from: wristLocation) ? .right : .left
+                } else if let wrist = observation[0][.wrist] {
+                    let wristLocation = CLLocation(latitude: Double(wrist.x), longitude: Double(wrist.y))
+                    determinedHand = rightWrist.distance(from: wristLocation) < leftWrist.distance(from: wristLocation) ? .left : .right
+                } else {
+                    fatalError("Cannot continue")
+                }
                 
                 for (landmarkKey, value) in data {
                     converted.add(Double(value.location.x),
-                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_X")
+                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand.rawValue)_X")
                     converted.add(Double(value.location.y),
-                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand?.rawValue ?? String(handIndex))_Y")
+                                  toArrayOn: "\(landmarkKey.stringValue())_\(determinedHand.rawValue)_Y")
                 }
             }
-
+            
             // Fill in the values for all potential landmarks that were not captured
             for landmarkKey in ObservationConfiguration.requestedHandLandmarks
-            where converted["\(landmarkKey.stringValue())_\(Hand.left.rawValue)_X"]?.count != observationIndex + 1  {
-                converted.add(0,
-                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.left.rawValue)_X")
-                converted.add(0,
-                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.left.rawValue)_Y")
+            where converted["\(landmarkKey.stringValue())_\(Hand.left.rawValue)_Y"]?.count != recognizedLandmarksIndex + 1  {
+                converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(Hand.left.rawValue)_X")
+                converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(Hand.left.rawValue)_Y")
             }
             
             for landmarkKey in ObservationConfiguration.requestedHandLandmarks
-            where converted["\(landmarkKey.stringValue())_\(Hand.right.rawValue)_X"]?.count != observationIndex + 1  {
-                converted.add(0,
-                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.right.rawValue)_X")
-                converted.add(0,
-                              toArrayOn: "\(landmarkKey.stringValue())_\(Hand.right.rawValue)_Y")
+            where converted["\(landmarkKey.stringValue())_\(Hand.right.rawValue)_Y"]?.count != recognizedLandmarksIndex + 1  {
+                converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(Hand.right.rawValue)_X")
+                converted.add(0, toArrayOn: "\(landmarkKey.stringValue())_\(Hand.right.rawValue)_Y")
             }
         }
-        
 
         return converted
     }
@@ -181,27 +189,26 @@ class DataStructuringManager {
         var stackedData = [String: [[Double]]]()
         var videoMetadata = ["width": [Double](), "height": [Double](), "fps": [Double]()]
 
-        for analysis in results {
+        for (index, analysis) in results.enumerated() {
             // Append data for body landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.bodyLandmarks) {
-                for (key, value) in
-                    convertBodyLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.body) {
+                for (key, value) in convertBodyLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.body) {
                     stackedData.add(value, toArrayOn: key)
                 }
             }
-            
+
             // Append data for hand landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.handLandmarks) {
                 convertHandLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.hand,
-                                             rightWrist: stackedData["rightWrist_X"]?.last,
-                                             leftWrist: stackedData["leftWrist_X"]?.last).forEach { key, value in
+                                             rightWrist: (stackedData["rightWrist_X"]?[index], stackedData["rightWrist_Y"]?[index]),
+                                             leftWrist: (stackedData["leftWrist_X"]?[index], stackedData["leftWrist_Y"]?[index])).forEach { key, value in
                     stackedData.add(value, toArrayOn: key)
                 }
             }
 
             // Append data for face landmarks
             if ObservationConfiguration.desiredDataAnnotations.contains(.faceLandmarks) {
-                convertFaceLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.face).forEach { key, value in
+                for (key, value) in convertFaceLandmarksToMLData(recognizedLandmarks: analysis.keyLandmarks.face) {
                     stackedData.add(value, toArrayOn: key)
                 }
             }
