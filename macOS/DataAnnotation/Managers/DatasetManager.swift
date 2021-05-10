@@ -91,8 +91,10 @@ class DatasetManager {
                     .forEach { item in
                         // Prevent from non-video formats
                         guard item.contains(".mp4") else{
-                            throw DatasetError.unsupportedFormat
+                            print(DatasetError.unsupportedFormat)
+                            return
                         }
+                        
                         // Load and process the annotations for each of the videos
                         let currentItemAnalysisManager = VisionAnalysisManager(
                             videoUrl: URL(fileURLWithPath: currentLabelPath.appending(item)),

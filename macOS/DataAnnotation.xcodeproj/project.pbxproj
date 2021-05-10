@@ -11,6 +11,10 @@
 		6B6CD9F925B4660500691F2F /* VideoAnalysisOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6CD9F825B4660500691F2F /* VideoAnalysisOperation.swift */; };
 		6F3FB5CB2595652100972A4C /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FB5CA2595652100972A4C /* URL+.swift */; };
 		6F97A82F2644363D007229F8 /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F97A82E2644363D007229F8 /* CardViewModifier.swift */; };
+		6F9A2EAB2644C67C006042C9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9A2EAA2644C67C006042C9 /* LoadingView.swift */; };
+		6F9A2EAD2644C7C5006042C9 /* LoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9A2EAC2644C7C5006042C9 /* LoadingModifier.swift */; };
+		6F9A2EAF2644C900006042C9 /* NotificationBannerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9A2EAE2644C900006042C9 /* NotificationBannerModifier.swift */; };
+		6F9A2EB12644C929006042C9 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9A2EB02644C929006042C9 /* BannerView.swift */; };
 		6F9FA25B2589627700672FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9FA25A2589627700672FDA /* AppDelegate.swift */; };
 		6F9FA25F2589627800672FDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F9FA25E2589627800672FDA /* Assets.xcassets */; };
 		6F9FA2622589627800672FDA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F9FA2612589627800672FDA /* Preview Assets.xcassets */; };
@@ -54,6 +58,10 @@
 		6B6CD9F825B4660500691F2F /* VideoAnalysisOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnalysisOperation.swift; sourceTree = "<group>"; };
 		6F3FB5CA2595652100972A4C /* URL+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
 		6F97A82E2644363D007229F8 /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
+		6F9A2EAA2644C67C006042C9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		6F9A2EAC2644C7C5006042C9 /* LoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModifier.swift; sourceTree = "<group>"; };
+		6F9A2EAE2644C900006042C9 /* NotificationBannerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerModifier.swift; sourceTree = "<group>"; };
+		6F9A2EB02644C929006042C9 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		6F9FA2572589627700672FDA /* Pose Data Annotator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pose Data Annotator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F9FA25A2589627700672FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F9FA25E2589627800672FDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,8 +128,19 @@
 			isa = PBXGroup;
 			children = (
 				6F97A82E2644363D007229F8 /* CardViewModifier.swift */,
+				6F9A2EAC2644C7C5006042C9 /* LoadingModifier.swift */,
+				6F9A2EAE2644C900006042C9 /* NotificationBannerModifier.swift */,
 			);
 			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		6F9A2EA92644C66D006042C9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6F9A2EAA2644C67C006042C9 /* LoadingView.swift */,
+				6F9A2EB02644C929006042C9 /* BannerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6F9FA24E2589627700672FDA = {
@@ -146,6 +165,7 @@
 		6F9FA2592589627700672FDA /* DataAnnotation */ = {
 			isa = PBXGroup;
 			children = (
+				6F9A2EA92644C66D006042C9 /* Views */,
 				6B6CD9F125B4656F00691F2F /* Operations */,
 				6F9FA29F258962CF00672FDA /* Application */,
 				6F9FA2A4258962EA00672FDA /* Configuration */,
@@ -380,13 +400,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F9FA292258962A900672FDA /* VisionAnalysisManager.swift in Sources */,
+				6F9A2EAD2644C7C5006042C9 /* LoadingModifier.swift in Sources */,
 				6FF2A447259530AB00AD5C44 /* AnotateDatasetViewModel.swift in Sources */,
 				6F9FA29C258962C400672FDA /* VNRecognizedPointsObservation+.swift in Sources */,
+				6F9A2EAF2644C900006042C9 /* NotificationBannerModifier.swift in Sources */,
 				6F97A82F2644363D007229F8 /* CardViewModifier.swift in Sources */,
 				6B6CD9F925B4660500691F2F /* VideoAnalysisOperation.swift in Sources */,
 				6F9FA290258962A900672FDA /* DatasetManager.swift in Sources */,
 				6F9FA2AA258962F500672FDA /* MachineLearningConfiguration.swift in Sources */,
 				6F9FA2BE258963DF00672FDA /* AnotateVideoViewModel.swift in Sources */,
+				6F9A2EAB2644C67C006042C9 /* LoadingView.swift in Sources */,
 				6FF2A43D25952BC300AD5C44 /* Array+.swift in Sources */,
 				F5C4C4AF25A88D94009E31DD /* VideoSettingsView.swift in Sources */,
 				6FF2A4352594F7E200AD5C44 /* Constants.swift in Sources */,
@@ -396,6 +419,7 @@
 				6F9FA291258962A900672FDA /* VideoProcessingManager.swift in Sources */,
 				6F9FA29A258962C300672FDA /* Dictionary+.swift in Sources */,
 				6F9FA293258962A900672FDA /* DataStructuringManager.swift in Sources */,
+				6F9A2EB12644C929006042C9 /* BannerView.swift in Sources */,
 				6F9FA29B258962C300672FDA /* FilePanel+.swift in Sources */,
 				6F9FA2BC258963DF00672FDA /* ContentView.swift in Sources */,
 				6F9FA2A8258962F500672FDA /* ObservationConfiguration.swift in Sources */,

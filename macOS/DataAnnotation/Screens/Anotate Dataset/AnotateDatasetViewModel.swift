@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import CreateML
 
 extension AnotateDatasetView {
@@ -15,9 +16,11 @@ extension AnotateDatasetView {
         private let observationConfiguration: ObservationConfiguration
         private var analysisManager: VisionAnalysisManager!
 
+        @Published var showLoading: Bool = false
         @Published var selectedFolderUrl: URL?
         @Published var subdirectories: Int = 0
         @Published var files: Int = 0
+        @Published var errorMessage: String = ""
 
         var isStartProcessingActive: Bool { subdirectories > 0 && files > 0}
 
@@ -42,15 +45,21 @@ extension AnotateDatasetView {
         func startAnnotate() {
             guard let selectedFolderUrl = selectedFolderUrl else { fatalError("URL cannot be empty")}
             let datasetManager = DatasetManager(directoryPath: selectedFolderUrl.path, fps: MachineLearningConfiguration.framesPerSecond)
+            showLoading = true
 
             datasetManager.generateMLTable { [weak self] result in
                 guard let self = self else { return }
                 
-                switch result {
-                case .success(let data):
-                    self.saveCVS(data: data)
-                case .failure(let error):
-                    print(error)
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data):
+                        self.saveCVS(data: data)
+                    case .failure(let error):
+                        print(error)
+                        self.errorMessage = error.localizedDescription
+                    }
+                    
+                    self.showLoading = false
                 }
             }
         }
@@ -71,7 +80,7 @@ extension AnotateDatasetView {
                     do {
                         try data.writeCSV(to: url)
                     } catch {
-                        print(error)
+                        self.errorMessage = error.localizedDescription
                     }
                 }
             }
