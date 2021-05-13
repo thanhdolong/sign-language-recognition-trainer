@@ -2,6 +2,9 @@
   "colors" : [
     {
       "idiom" : "universal"
+    },
+    {
+      "idiom" : "mac"
     }
   ],
   "info" : {
