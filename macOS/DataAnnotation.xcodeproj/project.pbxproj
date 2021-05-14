@@ -36,6 +36,7 @@
 		6FF2A43D25952BC300AD5C44 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF2A43C25952BC300AD5C44 /* Array+.swift */; };
 		6FF2A4432595309E00AD5C44 /* AnotateDatasetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF2A4422595309E00AD5C44 /* AnotateDatasetView.swift */; };
 		6FF2A447259530AB00AD5C44 /* AnotateDatasetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF2A446259530AB00AD5C44 /* AnotateDatasetViewModel.swift */; };
+		F583B07F264D14880021970F /* MarketingAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F583B07E264D14880021970F /* MarketingAssets.xcassets */; };
 		F5C4C4AC25A88D94009E31DD /* AnalysisSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4A825A88D94009E31DD /* AnalysisSettingsView.swift */; };
 		F5C4C4AD25A88D94009E31DD /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4A925A88D94009E31DD /* GeneralSettingsView.swift */; };
 		F5C4C4AE25A88D94009E31DD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4AA25A88D94009E31DD /* SettingsView.swift */; };
@@ -90,6 +91,7 @@
 		6FF2A43C25952BC300AD5C44 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		6FF2A4422595309E00AD5C44 /* AnotateDatasetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotateDatasetView.swift; sourceTree = "<group>"; };
 		6FF2A446259530AB00AD5C44 /* AnotateDatasetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotateDatasetViewModel.swift; sourceTree = "<group>"; };
+		F583B07E264D14880021970F /* MarketingAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MarketingAssets.xcassets; sourceTree = "<group>"; };
 		F5C4C4A825A88D94009E31DD /* AnalysisSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisSettingsView.swift; sourceTree = "<group>"; };
 		F5C4C4A925A88D94009E31DD /* GeneralSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		F5C4C4AA25A88D94009E31DD /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				6F9FA2612589627800672FDA /* Preview Assets.xcassets */,
 				6F9FA2632589627800672FDA /* Info.plist */,
 				6F9FA2642589627800672FDA /* DataAnnotation.entitlements */,
+				F583B07E264D14880021970F /* MarketingAssets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F9FA2622589627800672FDA /* Preview Assets.xcassets in Resources */,
+				F583B07F264D14880021970F /* MarketingAssets.xcassets in Resources */,
 				F5EF5C4B25C2F04D00964DE0 /* Icons.icns in Resources */,
 				6F9FA25F2589627800672FDA /* Assets.xcassets in Resources */,
 			);
@@ -571,14 +575,15 @@
 		6F9FA27E2589627900672FDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DataAnnotation/Resources/DataAnnotation.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"DataAnnotation/Resources\"";
-				DEVELOPMENT_TEAM = KW278547Y4;
+				DEVELOPMENT_TEAM = RNLQ7CT33Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = DataAnnotation/Resources/Info.plist;
@@ -596,14 +601,15 @@
 		6F9FA27F2589627900672FDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DataAnnotation/Resources/DataAnnotation.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"DataAnnotation/Resources\"";
-				DEVELOPMENT_TEAM = KW278547Y4;
+				DEVELOPMENT_TEAM = RNLQ7CT33Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = DataAnnotation/Resources/Info.plist;
