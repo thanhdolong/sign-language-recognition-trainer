@@ -2,7 +2,7 @@
 
 Welcome to the support page for the **Pose Data Annotator** app. You can find the most frequent questions here. 
 
-If you have a question, feel free to contact us at [matyas.bohacek@matsworld.io](mailto:matyas.bohacek@matsworld.io). If you have a suggestion, feature request, or want to file a bug report, proceed [here](https://github.com/thanhdolong/sign-language-recognition-trainer/issues/new/choose).
+If you have a question, feel free to contact us at [matyas.bohacek@matsworld.io](mailto:matyas.bohacek@matsworld.io) and [thanh.dolong@gmail.com](mailto:thanh.dolong@gmail.com). If you have a suggestion, feature request, or want to file a bug report, proceed [here](https://github.com/thanhdolong/sign-language-recognition-trainer/issues/new/choose).
 
 ### How to annotate a single video?
 
