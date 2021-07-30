@@ -102,11 +102,10 @@ class DatasetManager {
 
                         let videoAnalysisOp = VideoAnalysisOperation(visionAnalysisManager: currentItemAnalysisManager) { result in
                             analysisResult.append(result)
+                            labels.append(subdirectory)
                         }
                         
                         operations.append(videoAnalysisOp)
-                        
-                        labels.append(subdirectory)
                     }
             }
         } catch {
