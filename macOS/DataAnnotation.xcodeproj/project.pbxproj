@@ -36,6 +36,10 @@
 		6FF2A43D25952BC300AD5C44 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF2A43C25952BC300AD5C44 /* Array+.swift */; };
 		6FF2A4432595309E00AD5C44 /* AnotateDatasetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF2A4422595309E00AD5C44 /* AnotateDatasetView.swift */; };
 		6FF2A447259530AB00AD5C44 /* AnotateDatasetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF2A446259530AB00AD5C44 /* AnotateDatasetViewModel.swift */; };
+		F53332382769D28700CA6BDE /* CreateML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F53332362769D28700CA6BDE /* CreateML.framework */; };
+		F53332392769D28700CA6BDE /* libswiftCreateML.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F53332372769D28700CA6BDE /* libswiftCreateML.tbd */; };
+		F533323C2769D28E00CA6BDE /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F533323A2769D28E00CA6BDE /* CoreML.framework */; };
+		F533323D2769D28E00CA6BDE /* libswiftCoreML.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F533323B2769D28E00CA6BDE /* libswiftCoreML.tbd */; };
 		F583B07F264D14880021970F /* MarketingAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F583B07E264D14880021970F /* MarketingAssets.xcassets */; };
 		F5C4C4AC25A88D94009E31DD /* AnalysisSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4A825A88D94009E31DD /* AnalysisSettingsView.swift */; };
 		F5C4C4AD25A88D94009E31DD /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4C4A925A88D94009E31DD /* GeneralSettingsView.swift */; };
@@ -91,6 +95,10 @@
 		6FF2A43C25952BC300AD5C44 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		6FF2A4422595309E00AD5C44 /* AnotateDatasetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotateDatasetView.swift; sourceTree = "<group>"; };
 		6FF2A446259530AB00AD5C44 /* AnotateDatasetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotateDatasetViewModel.swift; sourceTree = "<group>"; };
+		F53332362769D28700CA6BDE /* CreateML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CreateML.framework; path = System/Library/Frameworks/CreateML.framework; sourceTree = SDKROOT; };
+		F53332372769D28700CA6BDE /* libswiftCreateML.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCreateML.tbd; path = usr/lib/swift/libswiftCreateML.tbd; sourceTree = SDKROOT; };
+		F533323A2769D28E00CA6BDE /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		F533323B2769D28E00CA6BDE /* libswiftCoreML.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCoreML.tbd; path = usr/lib/swift/libswiftCoreML.tbd; sourceTree = SDKROOT; };
 		F583B07E264D14880021970F /* MarketingAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MarketingAssets.xcassets; sourceTree = "<group>"; };
 		F5C4C4A825A88D94009E31DD /* AnalysisSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisSettingsView.swift; sourceTree = "<group>"; };
 		F5C4C4A925A88D94009E31DD /* GeneralSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
@@ -104,6 +112,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F533323C2769D28E00CA6BDE /* CoreML.framework in Frameworks */,
+				F533323D2769D28E00CA6BDE /* libswiftCoreML.tbd in Frameworks */,
+				F53332382769D28700CA6BDE /* CreateML.framework in Frameworks */,
+				F53332392769D28700CA6BDE /* libswiftCreateML.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +164,7 @@
 				6F9FA26C2589627800672FDA /* DataAnnotationTests */,
 				6F9FA2772589627800672FDA /* DataAnnotationUITests */,
 				6F9FA2582589627700672FDA /* Products */,
+				F53332352769D28700CA6BDE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,6 +293,17 @@
 				6FF2A446259530AB00AD5C44 /* AnotateDatasetViewModel.swift */,
 			);
 			path = "Anotate Dataset";
+			sourceTree = "<group>";
+		};
+		F53332352769D28700CA6BDE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F533323A2769D28E00CA6BDE /* CoreML.framework */,
+				F533323B2769D28E00CA6BDE /* libswiftCoreML.tbd */,
+				F53332362769D28700CA6BDE /* CreateML.framework */,
+				F53332372769D28700CA6BDE /* libswiftCreateML.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F5C4C4A725A88D6C009E31DD /* Settings */ = {
@@ -507,7 +531,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -563,7 +587,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -591,6 +615,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.signlanguagerecognition.DataAnnotation;
 				PRODUCT_NAME = "Pose Data Annotator";
@@ -616,6 +644,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.signlanguagerecognition.DataAnnotation;
